@@ -6,22 +6,6 @@ namespace BoardGame
 {
     public class TicTacToe : Game
     {
-        protected override int boardWidth
-        {
-            get
-            {
-                return 3;
-            }
-        }
-
-        protected override int boardHeight
-        {
-            get
-            {
-                return 3;
-            }
-        }
-
         public TicTacToe()
         {
         }
@@ -40,14 +24,40 @@ namespace BoardGame
 
         public override void run()
         {
-            board.render(grid: new Move[3,3]);
+            //board.render(grid: new Move[3,3]);
+            board.render();
 
             while (!gameFinished)
             {
                 currentPlayer = changeTurns();
-                currentPlayer.makeMove(moveTracker);
-                Thread.Sleep(500);
+                //currentPlayer.makeMove(board);
+                string input = currentPlayer.generateCommand();
+              
+                switch (input)
+                {
+                    case "undo":
+                        moveTracker.Undo();
+                        break;
+                    case "redo":
+                        moveTracker.Redo();
+                        break;
+                    case string command when command.StartsWith("place"):
+                        int r, c;
+                        String[] cmdSlices = input.Split(' ');
 
+                        if (int.TryParse(cmdSlices[1], out r) && int.TryParse(cmdSlices[2], out c))
+                        {
+                            Console.WriteLine($"r: {r}, c: {c}");
+                            Move move = new Move(r, c, currentPlayer, moveTracker, board);
+                            move.Execute();
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Command");
+                        break;
+                }
+
+                Thread.Sleep(500);
             }
 
             Console.WriteLine("Game Finished");

@@ -17,8 +17,12 @@ namespace BoardGame
 
     public class MoveTracker: IObservable<MoveRecord>
     {
+        private Stack<Move> _Undoables = new Stack<Move>();
+        private Stack<Move> _Redoables = new Stack<Move>();
+
         protected List<Move> history;
-        protected Move[,] moves;
+
+        protected Move[,] moves; // rename to state
         private List<IObserver<MoveRecord>> observers;
 
         public IDisposable Subscribe(IObserver<MoveRecord> observer)
@@ -55,35 +59,52 @@ namespace BoardGame
             moves = new Move[3,3];
         }
 
-        public bool addMove(Move move)
+        public void Undo()
         {
-            history.Add(move);
-            moves[move.row, move.col] = move;
-            MoveRecord record = new MoveRecord(move, moves);
-
-            Console.WriteLine($"Move added {move.row} {move.col}");
-            foreach (var observer in observers)
+            if (_Undoables.Count > 0)
             {
-                //if (!loc.HasValue)
-                //    observer.OnError(new LocationUnknownException());
-                //else
-                    observer.OnNext(record);
+                Move move = _Undoables.Pop();
+                move.UnExecute();
+                _Redoables.Push(move);
             }
-            return true;
         }
+
+        public void Redo()
+        {
+            if (_Redoables.Count > 0)
+            {
+                Move move = _Redoables.Pop();
+                move.Execute();
+                _Undoables.Push(move);
+            }
+        }
+
+        public void InsertMove(Move move)
+        {
+            _Undoables.Push(move);
+            _Redoables.Clear();
+        }
+
+        //public bool addMove(Move move)
+        //{
+        //    history.Add(move);
+        //    moves[move.row, move.col] = move;
+        //    MoveRecord record = new MoveRecord(move, moves);
+
+        //    Console.WriteLine($"Move added {move.row} {move.col}");
+        //    foreach (var observer in observers)
+        //    {
+        //        //if (!loc.HasValue)
+        //        //    observer.OnError(new LocationUnknownException());
+        //        //else
+        //            observer.OnNext(record);
+        //    }
+        //    return true;
+        //}
 
         private bool isValidMove(Move move)
         {
             return true;
         }
-
-        //execute()
-        //{
-        //    //undo
-        //    Board.grid[3][2] = 'X'
-        //    //redo
-        //    Board.grid[3][2] = ''
-        //}
     }
 }
-

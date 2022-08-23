@@ -32,8 +32,6 @@ namespace BoardGame
         public MoveTracker moveTracker;
         protected bool gameFinished = false;
         //public virtual Player createHumanPlayer();
-        protected abstract int boardWidth { get; }
-        protected abstract int boardHeight { get; }
 
        
         protected Player currentPlayer;
