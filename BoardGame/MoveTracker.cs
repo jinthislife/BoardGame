@@ -3,18 +3,6 @@ using System;
 
 namespace BoardGame
 {
-    public struct MoveRecord
-    {
-        public Move latest;
-        public Move[,] moves; // QQ accessibility
-
-        public MoveRecord(Move move, Move[,] moves)
-        {
-            this.latest = move;
-            this.moves = moves;
-        }
-    }
-
     public class MoveTracker
     {
         private Stack<PlaceCommand> _Undoables = new Stack<PlaceCommand>();

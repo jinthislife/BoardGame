@@ -41,6 +41,8 @@ namespace BoardGame
                         moveTracker.Redo();
                         break;
                     case "save":
+                    case "load":
+                    case "help":
                         break;
                     case string command when command.StartsWith("place"):
                         int r, c;
