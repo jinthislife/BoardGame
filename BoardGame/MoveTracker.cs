@@ -17,10 +17,8 @@ namespace BoardGame
 
     public class MoveTracker: IObservable<MoveRecord>
     {
-        private Stack<Move> _Undoables = new Stack<Move>();
-        private Stack<Move> _Redoables = new Stack<Move>();
-
-        protected List<Move> history;
+        private Stack<PlaceCommand> _Undoables = new Stack<PlaceCommand>();
+        private Stack<PlaceCommand> _Redoables = new Stack<PlaceCommand>();
 
         protected Move[,] moves; // rename to state
         private List<IObserver<MoveRecord>> observers;
@@ -55,7 +53,6 @@ namespace BoardGame
         public MoveTracker()
         {
             observers = new List<IObserver<MoveRecord>>();
-            history = new List<Move>();
             moves = new Move[3,3];
         }
 
@@ -63,9 +60,9 @@ namespace BoardGame
         {
             if (_Undoables.Count > 0)
             {
-                Move move = _Undoables.Pop();
-                move.UnExecute();
-                _Redoables.Push(move);
+                PlaceCommand place = _Undoables.Pop();
+                place.UnExecute();
+                _Redoables.Push(place);
             }
         }
 
@@ -73,38 +70,17 @@ namespace BoardGame
         {
             if (_Redoables.Count > 0)
             {
-                Move move = _Redoables.Pop();
-                move.Execute();
-                _Undoables.Push(move);
+                PlaceCommand place = _Redoables.Pop();
+                place.Execute();
+                _Undoables.Push(place);
             }
         }
 
-        public void InsertMove(Move move)
+        public void InsertMove(PlaceCommand place)
         {
-            _Undoables.Push(move);
+            _Undoables.Push(place);
             _Redoables.Clear();
         }
 
-        //public bool addMove(Move move)
-        //{
-        //    history.Add(move);
-        //    moves[move.row, move.col] = move;
-        //    MoveRecord record = new MoveRecord(move, moves);
-
-        //    Console.WriteLine($"Move added {move.row} {move.col}");
-        //    foreach (var observer in observers)
-        //    {
-        //        //if (!loc.HasValue)
-        //        //    observer.OnError(new LocationUnknownException());
-        //        //else
-        //            observer.OnNext(record);
-        //    }
-        //    return true;
-        //}
-
-        private bool isValidMove(Move move)
-        {
-            return true;
-        }
     }
 }

@@ -24,7 +24,6 @@ namespace BoardGame
 
         public override void run()
         {
-            //board.render(grid: new Move[3,3]);
             board.render();
 
             while (!gameFinished)
@@ -32,6 +31,8 @@ namespace BoardGame
                 currentPlayer = changeTurns();
                 //currentPlayer.makeMove(board);
                 string input = currentPlayer.generateCommand();
+
+                ICommand cmd;
               
                 switch (input)
                 {
@@ -41,6 +42,8 @@ namespace BoardGame
                     case "redo":
                         moveTracker.Redo();
                         break;
+                    case "save":
+                        break;
                     case string command when command.StartsWith("place"):
                         int r, c;
                         String[] cmdSlices = input.Split(' ');
@@ -48,8 +51,11 @@ namespace BoardGame
                         if (int.TryParse(cmdSlices[1], out r) && int.TryParse(cmdSlices[2], out c))
                         {
                             Console.WriteLine($"r: {r}, c: {c}");
-                            Move move = new Move(r, c, currentPlayer, moveTracker, board);
-                            move.Execute();
+                            //Move move = new Move(r, c, currentPlayer, moveTracker, board);
+                            Move move = new Move(r, c, currentPlayer);
+                            cmd = new PlaceCommand(move, moveTracker, board);
+                            cmd.Execute();
+                            //move.Execute();
                         }
                         break;
                     default:
