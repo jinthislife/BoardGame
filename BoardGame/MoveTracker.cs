@@ -48,7 +48,7 @@ namespace BoardGame
             }
         }
 
-        public void InsertMove(PlaceCommand place)
+        public void Insert(PlaceCommand place)
         {
             _Undoables.Push(place);
             _Redoables.Clear();

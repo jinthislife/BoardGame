@@ -19,7 +19,7 @@ namespace BoardGame
         
 
         //protected abstract void initializeGame();
-        public abstract void initializeGame();
+        public abstract void initialize();
         public abstract void run();
         protected abstract Player changeTurns();
         protected abstract void displayIntro();

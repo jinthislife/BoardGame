@@ -16,13 +16,13 @@ namespace BoardGame
 
         public void Execute()
         {
-            board.placeMove(move);
-            moveTracker.InsertMove(this);
+            board.place(move);
+            moveTracker.Insert(this);
         }
 
         public void UnExecute()
         {
-            board.withdrawMove(move);
+            board.withdraw(move);
         }
     }
 

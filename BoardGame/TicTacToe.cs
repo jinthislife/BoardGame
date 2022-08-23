@@ -10,7 +10,7 @@ namespace BoardGame
         {
         }
 
-        public override void initializeGame()
+        public override void initialize()
         {
             displayIntro();
             int mode = SelectGameMode();

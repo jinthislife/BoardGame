@@ -16,45 +16,18 @@ namespace BoardGame
             grid = new Move[width, height];
         }
 
-        public void placeMove(Move move)
+        public void place(Move move)
         {
-
             grid[move.row, move.col] = move;
-            render(); // QQ Observer Pattern?
-            // add move to MoveTracker
-    
+            render();
         }
 
-        public void withdrawMove(Move move)
+        public void withdraw(Move move)
         {
             grid[move.row, move.col] = null;
             render();
         }
 
-        //public bool placeMove(string command, Player p)
-        //{
-
-        //    String[] cmdSlices = command.Split(' ');
-        //    if (cmdSlices.Length != 3)
-        //    {
-        //        return false;
-        //    }
-        //    int r, c;
-
-        //    if (!int.TryParse(cmdSlices[1], out r) || !int.TryParse(cmdSlices[2], out c))
-        //    {
-        //        return false;
-        //    }
-
-        //    if (r > row || c > row) return false;
-
-        //    grid[r, c] = new Move(r, c, p);
-        //    render(); // QQ Observer Pattern?
-        //    // add move to MoveTracker
-        //    return true;
-        //}
-
-        //public void render(Move[,] grid)
         public void render()
         {
             const int moduleWidth = 6; //QQ: naming convention

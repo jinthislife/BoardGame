@@ -10,7 +10,7 @@ namespace BoardGame
             Console.WriteLine("Welcome to the BoardGame");
 
             Game game = Game.createGame();
-            game.initializeGame();
+            game.initialize();
             game.run();
         }
     }

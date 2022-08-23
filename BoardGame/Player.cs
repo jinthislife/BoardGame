@@ -13,7 +13,6 @@ namespace BoardGame
         }
 
         //public abstract void makeMove(MoveTracker moveTracker);
-        public abstract void makeMove(Board board);
         public abstract string generateCommand();
 
     }
