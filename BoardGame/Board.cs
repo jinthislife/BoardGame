@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BoardGame
 {
-    public class Board : IObserver<MoveRecord>
+    public class Board
     {
         private int row;
         private int column;
@@ -100,24 +100,6 @@ namespace BoardGame
             }
 
          }
-
-        // IObserver Interfaces
-
-        public void OnCompleted()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnError(Exception error)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnNext(MoveRecord record)
-        {
-            Console.WriteLine("Board Received Notification");
-            //render(record.moves);
-        }
     }
 }
 

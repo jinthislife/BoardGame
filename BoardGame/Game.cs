@@ -10,7 +10,7 @@ namespace BoardGame
         Othello
     }
 
-    public abstract class Game : IObserver<MoveRecord>  // QQ: abstract vs normal class
+    public abstract class Game // QQ: abstract vs normal class
     {
         //public Game()
         //{
@@ -122,22 +122,6 @@ namespace BoardGame
 
             Console.WriteLine($"Mode {response} chosen.");
             return mode;
-        }
-
-        public void OnCompleted()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnError(Exception error)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnNext(MoveRecord record)
-        {
-            Console.WriteLine("Game Received Notification");
-            gameFinished = checkWin(moves: record.moves, latest: record.latest);
         }
     }
 }

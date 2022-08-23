@@ -18,8 +18,6 @@ namespace BoardGame
             board = createBoard(width: 3, height: 3);
 
             moveTracker = new MoveTracker();
-            moveTracker.Subscribe(board); // add observation
-            moveTracker.Subscribe(this);
         }
 
         public override void run()

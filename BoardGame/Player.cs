@@ -16,7 +16,6 @@ namespace BoardGame
         public abstract void makeMove(Board board);
         public abstract string generateCommand();
 
-
     }
 }
 
