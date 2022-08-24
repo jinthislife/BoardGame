@@ -2,6 +2,7 @@
 namespace BoardGame
 {
     public abstract class Player
+    //public class Player
     {
         public Piece piece;
         protected String name;
@@ -14,6 +15,12 @@ namespace BoardGame
 
         //public abstract void makeMove(MoveTracker moveTracker);
         public abstract string generateCommand();
+
+
+        public override string ToString()
+        {
+            return ($"Player {name}");
+        }
 
     }
 }

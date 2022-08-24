@@ -53,10 +53,10 @@ namespace BoardGame
                     {
                         int gridRow = x / moduleWidth;
                         int gridCol = y / moduleHeight;
-                        //Console.WriteLine($"RENDER ROW: {gridRow} WID:{gridCol
+                        
                         if (grid[gridRow, gridCol] == null)
                         {
-                            Console.Write("*");
+                            Console.Write(" ");
                         }
                         else
                         {
@@ -73,6 +73,98 @@ namespace BoardGame
             }
 
          }
+
+
+        // TODO: wincheck except diag/antidiagonal
+        public bool winningLineExists(Move latest)
+        {
+            // check col
+            for (int col = 0; col < 3; col++)
+            {
+                if (grid[latest.row, col] == null)
+                {
+                    //return false;
+                    break;
+                }
+                else if (grid[latest.row, col].player != latest.player)
+                {
+                    //return false;
+                    break;
+                }
+                else if (col == 2)
+                {
+                    return true;
+                }
+            }
+
+            // check row
+            for (int row = 0; row < 3; row++)
+            {
+                if (grid[row, latest.col] == null)
+                {
+                    //return false;
+                    break;
+                }
+                else if (grid[row, latest.col].player != latest.player)
+                {
+                    //return false;
+                    break;
+                }
+                else if (row == 2)
+                {
+                    return true;
+                }
+            }
+
+            // check diag
+            if (latest.row == latest.col)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (grid[i, i] == null)
+                    {
+                        //return false;
+                        break;
+                    }
+                    else if (grid[i, i].player != latest.player)
+                    {
+                        //return false;
+                        break;
+                    }
+                    else if (i == 2)
+                    {
+                        return true;
+                    }
+
+                }
+            }
+
+            // check anti-diagonal
+            if (latest.row + latest.col == 2)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+
+                    if (grid[i, 2 - i] == null)
+                    {
+                        //return false;
+                        break;
+                    }
+                    else if (grid[i, 2 - i].player != latest.player)
+                    {
+                        //return false;
+                        break;
+                    }
+                    else if (i == 2)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            //check draw??
+
+            return false;
+        }
     }
 }
-

@@ -41,7 +41,9 @@ namespace BoardGame
                         moveTracker.Redo();
                         break;
                     case "save":
+                        // storage.save()
                     case "load":
+                        // storage.load()
                     case "help":
                         break;
                     case string command when command.StartsWith("place"):
@@ -51,12 +53,14 @@ namespace BoardGame
                         if (int.TryParse(cmdSlices[1], out r) && int.TryParse(cmdSlices[2], out c))
                         {
                             Console.WriteLine($"r: {r}, c: {c}");
-                            //Move move = new Move(r, c, currentPlayer, moveTracker, board);
                             Move move = new Move(r, c, currentPlayer);
                             cmd = new PlaceCommand(move, moveTracker, board);
                             cmd.Execute();
                             //move.Execute();
+                            //gameFinished = checkWin();
+                            gameFinished = board.winningLineExists(move);
                         }
+                        
                         break;
                     default:
                         Console.WriteLine("Invalid Command");
@@ -66,7 +70,7 @@ namespace BoardGame
                 Thread.Sleep(500);
             }
 
-            Console.WriteLine("Game Finished");
+            Console.WriteLine($"{currentPlayer.ToString()} won the game!");
         }
 
         protected override void displayIntro()
@@ -110,87 +114,9 @@ namespace BoardGame
             return players[curPlayerID];
         }
 
-        protected override bool checkWin(Move[,] moves, Move latest)
+        protected override bool checkWin()
         {
-            // check col
-            for (int col=0; col<3; col++)
-            {
-                Console.WriteLine($"col: {col}, latest.row {latest.row}");
-                //Console.WriteLine($"player: {moves[latest.row, col].player}, latestPlayer {latest.player}");
-
-                if (moves[latest.row, col] == null)
-                {
-                    return false;
-                }
-                else if (moves[latest.row, col].player != latest.player)
-                {
-                    return false;
-                }
-                else if (col == 2)
-                {
-                    return true;
-                }
-            }
-
-            // check row
-            for (int row = 0; row < 3; row++)
-            {
-                if (moves[row, latest.col] != null)
-                {
-                    return false;
-                }
-                else if (moves[row, latest.col].player != latest.player)
-                {
-                    return false;
-                }
-                else if ( row == 2)
-                {
-                    return true;
-                }
-            }
-
-            // check diag
-            if (latest.row == latest.col)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (moves[i, i] != null)
-                    {
-                        return false;
-                    }
-                    else if (moves[i, i].player != latest.player)
-                    {
-                        return false;
-                    } else if (i == 2)
-                    {
-                        return true;
-                    }
-
-                }
-            }
-
-            // check anti-diagonal
-            if (latest.row + latest.col == 2)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (moves[i, 2 - i] != null)
-                    {
-                        return false;
-                    } else if (moves[i, 2 - i].player != latest.player)
-                    {
-                        return false;
-                    }
-                    else if ( i == 2)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            //check draw??
-
-            return false;
+            throw new NotImplementedException();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BoardGame
         public abstract void run();
         protected abstract Player changeTurns();
         protected abstract void displayIntro();
-        protected abstract bool checkWin(Move[,] moves, Move latest = null); // optional parm
+        protected abstract bool checkWin();
 
         protected abstract Player createHumanPlayer(int playerNumbers);
         protected abstract Piece createPieceForPlayer(string name);

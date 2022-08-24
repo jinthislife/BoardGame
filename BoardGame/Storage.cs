@@ -6,6 +6,16 @@ namespace BoardGame
         public Storage()
         {
         }
+
+        public void save()
+        {
+
+        }
+
+        public void load()
+        {
+
+        }
     }
 }
 
