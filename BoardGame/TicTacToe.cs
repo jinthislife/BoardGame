@@ -23,11 +23,10 @@ namespace BoardGame
         public override void run()
         {
             board.render();
+            currentPlayer = players[0];
 
             while (!gameFinished)
             {
-                currentPlayer = changeTurns();
-                //currentPlayer.makeMove(board);
                 string input = currentPlayer.generateCommand();
 
                 ICommand cmd;
@@ -50,7 +49,9 @@ namespace BoardGame
                         int r, c;
                         String[] cmdSlices = input.Split(' ');
 
-                        if (int.TryParse(cmdSlices[1], out r) && int.TryParse(cmdSlices[2], out c))
+                        if (cmdSlices.Length == 3 &&
+                            int.TryParse(cmdSlices[1], out r) &&
+                            int.TryParse(cmdSlices[2], out c))
                         {
                             Console.WriteLine($"r: {r}, c: {c}");
                             Move move = new Move(r, c, currentPlayer);
@@ -59,6 +60,11 @@ namespace BoardGame
                             //move.Execute();
                             //gameFinished = checkWin();
                             gameFinished = board.winningLineExists(move);
+
+                            if (!gameFinished)
+                            {
+                                currentPlayer = changeTurns();
+                            }
                         }
                         
                         break;
@@ -70,7 +76,7 @@ namespace BoardGame
                 Thread.Sleep(500);
             }
 
-            Console.WriteLine($"{currentPlayer.ToString()} won the game!");
+            Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
         }
 
         protected override void displayIntro()
@@ -111,6 +117,7 @@ namespace BoardGame
         protected override Player changeTurns()
         {
             curPlayerID = (curPlayerID + 1) % 2;
+            Console.WriteLine($"{players[curPlayerID].ToString()}, your turn!");
             return players[curPlayerID];
         }
 
