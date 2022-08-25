@@ -7,7 +7,7 @@ namespace BoardGame
         {
         }
 
-        public override string generateCommand()
+        public override string play()
         {//is it necessary?
             return "";
         }

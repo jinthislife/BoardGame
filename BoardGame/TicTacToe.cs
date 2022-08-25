@@ -23,11 +23,11 @@ namespace BoardGame
         public override void run()
         {
             board.render();
-            currentPlayer = players[0];
+            currentPlayer = changeTurns();
 
             while (!gameFinished)
             {
-                string input = currentPlayer.generateCommand();
+                string input = currentPlayer.play();
 
                 ICommand cmd;
               
@@ -40,33 +40,27 @@ namespace BoardGame
                         moveTracker.Redo();
                         break;
                     case "save":
-                        // storage.save()
+                        // savecommand.execute();
                     case "load":
-                        // storage.load()
+                        // loadcommand.execute();
                     case "help":
+                        //helpcommand.execute();
                         break;
-                    case string command when command.StartsWith("place"):
-                        int r, c;
-                        String[] cmdSlices = input.Split(' ');
-
-                        if (cmdSlices.Length == 3 &&
-                            int.TryParse(cmdSlices[1], out r) &&
-                            int.TryParse(cmdSlices[2], out c))
-                        {
-                            Console.WriteLine($"r: {r}, c: {c}");
-                            Move move = new Move(r, c, currentPlayer);
+                    case string movestr when movestr.StartsWith("place"):
+                        Move move = generateMoveFrom(movestr);
+                        if (move != null) { 
                             cmd = new PlaceCommand(move, moveTracker, board);
                             cmd.Execute();
-                            //move.Execute();
-                            //gameFinished = checkWin();
-                            gameFinished = board.winningLineExists(move);
 
-                            if (!gameFinished)
+                            if (board.winningLineExists(move))
+                            {
+                                gameFinished = true;
+                            }
+                            else
                             {
                                 currentPlayer = changeTurns();
                             }
                         }
-                        
                         break;
                     default:
                         Console.WriteLine("Invalid Command");
@@ -77,6 +71,32 @@ namespace BoardGame
             }
 
             Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
+        }
+
+        private Move generateMoveFrom(String moveStr)
+        {
+            int r, c;
+            String[] cmdSlices = moveStr.Split(' ');
+
+            if (cmdSlices.Length == 3 &&
+                int.TryParse(cmdSlices[1], out r) &&
+                int.TryParse(cmdSlices[2], out c))
+            {
+                Console.WriteLine($"r: {r}, c: {c}");
+                if (r > 2 || c > 2)
+                {
+                    Console.WriteLine("Your move is out of valid range. Try again!");
+                    return null;
+                }
+
+                Move move = new Move(r, c, currentPlayer);
+                return move;
+            } else
+            {
+                Console.WriteLine("Failed to interpret your input. Try again!");
+            }
+            return null; // QQ ok?
+
         }
 
         protected override void displayIntro()

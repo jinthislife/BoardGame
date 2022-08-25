@@ -1,4 +1,6 @@
 ﻿using System;
+using BoardGame;
+
 namespace BoardGame
 {
     public class HumanPlayer : Player
@@ -7,9 +9,8 @@ namespace BoardGame
         {
         }
 
-        public override string generateCommand()
+        public override string play()
         {
-            Console.WriteLine($"{name}, your turn!");
             Console.Write(">> ");
             string cmd = Console.ReadLine();
 
@@ -17,4 +18,3 @@ namespace BoardGame
         }
     }
 }
-
