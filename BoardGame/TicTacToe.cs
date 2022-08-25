@@ -27,7 +27,7 @@ namespace BoardGame
 
             while (!gameFinished)
             {
-                string input = currentPlayer.play();
+                string input = currentPlayer.play(board);
 
                 ICommand cmd;
               
@@ -66,8 +66,6 @@ namespace BoardGame
                         Console.WriteLine("Invalid Command");
                         break;
                 }
-
-                Thread.Sleep(500);
             }
 
             Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
@@ -80,20 +78,15 @@ namespace BoardGame
 
             if (cmdSlices.Length == 3 &&
                 int.TryParse(cmdSlices[1], out r) &&
-                int.TryParse(cmdSlices[2], out c))
+                int.TryParse(cmdSlices[2], out c) &&
+                board.checkValidMove(x: r, y: c)
+             )
             {
-                Console.WriteLine($"r: {r}, c: {c}");
-                if (r > 2 || c > 2)
-                {
-                    Console.WriteLine("Your move is out of valid range. Try again!");
-                    return null;
-                }
-
-                Move move = new Move(r, c, currentPlayer);
-                return move;
-            } else
+                return new Move(r, c, currentPlayer);
+            }
+            else
             {
-                Console.WriteLine("Failed to interpret your input. Try again!");
+                Console.WriteLine("Failed to place your move. Please try again!");
             }
             return null; // QQ ok?
 
@@ -136,8 +129,10 @@ namespace BoardGame
 
         protected override Player changeTurns()
         {
+            Thread.Sleep(2000);
+
             curPlayerID = (curPlayerID + 1) % 2;
-            Console.WriteLine($"{players[curPlayerID].ToString()}, your turn!");
+            Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
             return players[curPlayerID];
         }
 

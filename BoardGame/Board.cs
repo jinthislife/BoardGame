@@ -35,8 +35,8 @@ namespace BoardGame
 
             int maxX = row * moduleWidth - 1;
             int maxY = column * moduleHeight - 1;
-            
 
+            Console.WriteLine("\n");
             for (var y=0; y <= maxY; y++)
             {
                 for (var x=0; x <= maxX; x++)
@@ -74,6 +74,37 @@ namespace BoardGame
 
          }
 
+        public int[] getEmptyModule()
+        {
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    if (grid[i, j] == null)
+                    {
+                        return new int[] { i, j };
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool checkValidMove(int x, int y)
+        {
+            if (x > row || y > column)
+            {
+                Console.WriteLine("The move is out of valid range.");
+                return false;
+            }
+
+            if (grid[x, y] != null)
+            {
+                Console.WriteLine($"{x} {y} is already occupied.");
+                return false;
+            }
+
+            return true;
+        }
 
         // TODO: wincheck except diag/antidiagonal
         public bool winningLineExists(Move latest)
@@ -83,12 +114,10 @@ namespace BoardGame
             {
                 if (grid[latest.row, col] == null)
                 {
-                    //return false;
                     break;
                 }
                 else if (grid[latest.row, col].player != latest.player)
                 {
-                    //return false;
                     break;
                 }
                 else if (col == 2)
@@ -102,12 +131,10 @@ namespace BoardGame
             {
                 if (grid[row, latest.col] == null)
                 {
-                    //return false;
                     break;
                 }
                 else if (grid[row, latest.col].player != latest.player)
                 {
-                    //return false;
                     break;
                 }
                 else if (row == 2)
@@ -123,12 +150,10 @@ namespace BoardGame
                 {
                     if (grid[i, i] == null)
                     {
-                        //return false;
                         break;
                     }
                     else if (grid[i, i].player != latest.player)
                     {
-                        //return false;
                         break;
                     }
                     else if (i == 2)
@@ -147,12 +172,10 @@ namespace BoardGame
 
                     if (grid[i, 2 - i] == null)
                     {
-                        //return false;
                         break;
                     }
                     else if (grid[i, 2 - i].player != latest.player)
                     {
-                        //return false;
                         break;
                     }
                     else if (i == 2)

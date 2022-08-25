@@ -9,7 +9,7 @@ namespace BoardGame
         {
         }
 
-        public override string play()
+        public override string play(Board board)
         {
             Console.Write(">> ");
             string cmd = Console.ReadLine();

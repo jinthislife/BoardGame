@@ -93,11 +93,12 @@ namespace BoardGame
                 // Create AI and Human players
                 Player p = createHumanPlayer(playerNumbers);
                 players[playerNumbers] = p;
+                playerNumbers++;
                 //Players.Add(p);
 
                 Piece piece = createPieceForPlayer("AI");
                 Player ai = new AIPlayer(piece: piece);
-                players[playerNumbers++] = ai;
+                players[playerNumbers] = ai;
                 //Players.Add(ai);
             }
 
