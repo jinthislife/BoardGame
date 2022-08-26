@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json;
 
 namespace BoardGame
 {
@@ -7,7 +6,7 @@ namespace BoardGame
     //public class Player
     {
         public String name { get; set; }
-        public object piece { get; set; }
+        public Piece piece { get; set; }
 
         public Player(Piece piece, String name)
         {

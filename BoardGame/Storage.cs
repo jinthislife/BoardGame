@@ -1,10 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Xml;
-using System.Reflection.PortableExecutable;
 
 namespace BoardGame
 {
@@ -62,7 +58,7 @@ namespace BoardGame
         {
             int row, col, isHuman;
             String[] slices = line.Split(",");
-            Console.WriteLine($"{line}");
+           
             if (int.TryParse(slices[0], out row) &&
                 int.TryParse(slices[1], out col) &&
                 int.TryParse(slices[2], out isHuman))
@@ -87,7 +83,6 @@ namespace BoardGame
                 {
                     player = new HumanPlayer(piece, slices[2]);
                 }
-
                 return new Move(row, col, player);
             }
             else
