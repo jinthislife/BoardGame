@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
+using System.Reflection.PortableExecutable;
 
 namespace BoardGame
 {
@@ -17,8 +18,6 @@ namespace BoardGame
 
         public void save(List<Move> moves)
         {
-            
-
             FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);
             StreamWriter writer = new StreamWriter(outFile);
 
@@ -35,50 +34,67 @@ namespace BoardGame
         {
             FileStream inFile = new FileStream(FILENAME, FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(inFile);
+            string recordIn = reader.ReadLine();
 
             List<Move> moves = new List<Move>();
-            int row, col, isHuman;
-            string recordIn = reader.ReadLine();
+
             while (recordIn != null)
             {
-                String[] slices = recordIn.Split(",");
-                Console.WriteLine($"{recordIn}");
-                if (int.TryParse(slices[0], out row) &&
-                    int.TryParse(slices[1], out col) &&
-                    int.TryParse(slices[2], out isHuman))
+                try
                 {
-                    Piece piece;
-                    Player player;
+                    Console.WriteLine($"{recordIn}");
 
-                    if (slices[4] == "BoardGame.SymbolPiece")
-                    {
-                        piece = new SymbolPiece(symbol: slices[5].ToCharArray()[0]);
-                    }
-                    else
-                    {
-                        piece = new ColorPiece(color: slices[5]);
-                    }
-                    
-                    if (isHuman == 0)
-                    {
-                        player = new AIPlayer(piece, slices[2]);
-                    }
-                    else
-                    {
-                        player = new HumanPlayer(piece, slices[2]);
-                    }
-
-                    moves.Add(new Move(row, col, player));
+                    Move m = parseLine(recordIn);
+                    moves.Add(m);
                     recordIn = reader.ReadLine();
                 }
-                else
+                catch
                 {
-                    throw new InvalidDataException();
+                    Console.WriteLine("Failed to load history");
+                    break;
                 }
             }
+
             return moves;
         }
 
+        private Move parseLine(String line)
+        {
+            int row, col, isHuman;
+            String[] slices = line.Split(",");
+            Console.WriteLine($"{line}");
+            if (int.TryParse(slices[0], out row) &&
+                int.TryParse(slices[1], out col) &&
+                int.TryParse(slices[2], out isHuman))
+            {
+                Piece piece;
+                Player player;
+
+                if (slices[4] == "BoardGame.SymbolPiece")
+                {
+                    piece = new SymbolPiece(symbol: slices[5].ToCharArray()[0]);
+                }
+                else
+                {
+                    piece = new ColorPiece(color: slices[5]);
+                }
+
+                if (isHuman == 0)
+                {
+                    player = new AIPlayer(piece, slices[2]);
+                }
+                else
+                {
+                    player = new HumanPlayer(piece, slices[2]);
+                }
+
+                return new Move(row, col, player);
+            }
+            else
+            {
+                throw new InvalidDataException();
+            }      
+        }
     }
 }
 
