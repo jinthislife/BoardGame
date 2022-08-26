@@ -5,7 +5,7 @@ namespace BoardGame
 {
     public class AIPlayer : Player
     {
-        public AIPlayer(Piece piece, string name = "AI") : base(name, piece)
+        public AIPlayer(Piece piece, string name = "AI") : base(piece, name)
         {
         }
 

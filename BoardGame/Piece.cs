@@ -16,8 +16,18 @@ namespace BoardGame
 
     public class ColorPiece : Piece
     {
-        protected Color color;
+        protected String color;
 
+        public ColorPiece(String color)
+        {
+            this.color = color;
+           
+        }
+
+        public override string ToString()
+        {
+            return color.ToString();
+        }
     }
 
     public class SymbolPiece : Piece
@@ -37,12 +47,10 @@ namespace BoardGame
             symbols[symbol] = true;
         }
 
-        public string ToJson()
+        public override string ToString()
         {
-            Console.WriteLine("Serialize SymbolPiece");
-            return JsonSerializer.Serialize(this);
+            return symbol.ToString();
         }
-
     }
 }
 

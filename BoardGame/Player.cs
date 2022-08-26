@@ -9,7 +9,7 @@ namespace BoardGame
         public String name { get; set; }
         public object piece { get; set; }
 
-        public Player(String name, Piece piece)
+        public Player(Piece piece, String name)
         {
             this.name = name;
             this.piece = piece;
@@ -23,14 +23,6 @@ namespace BoardGame
         {
             return ($"{name}");
         }
-
-        public string ToJson()
-        {
-            Console.WriteLine("Serialize Player");
-
-            return JsonSerializer.Serialize(this);
-        }
-
     }
 }
 

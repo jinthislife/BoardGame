@@ -52,17 +52,7 @@ namespace BoardGame
 
         public override string ToString()
         {
-            return $"{row},{col},{player.name},{piece}";
-        }
-
-        public string ToJson()
-        {
-            //var params = new Dictionary<string, T> { { "row", row } };
-            //return JsonSerializer.Serialize (params);
-            Console.WriteLine("Serialize Move");
-
-            return JsonSerializer.Serialize(this);
+            return $"{row},{col},{((player is HumanPlayer) ? 1 : 0)},{player.name},{player.piece.GetType()},{player.piece.ToString()}";
         }
     }
 }
-

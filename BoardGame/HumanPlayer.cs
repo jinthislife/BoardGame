@@ -5,7 +5,7 @@ namespace BoardGame
 {
     public class HumanPlayer : Player
     {
-        public HumanPlayer(string name, Piece piece) : base(name, piece)
+        public HumanPlayer(Piece piece, string name) : base(piece, name)
         {
         }
 
