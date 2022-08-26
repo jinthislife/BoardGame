@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace BoardGame
 {
@@ -23,7 +24,7 @@ namespace BoardGame
     {
         static protected Dictionary<Char, bool>  symbols = new Dictionary<Char, bool>{ ['O'] = false, ['X'] = false };
 
-        public Char symbol;//QQ"
+        public Char symbol { get; set; }//QQ"
 
         static public Char[] getAvailableSymbols()
         {
@@ -34,6 +35,12 @@ namespace BoardGame
         {
             this.symbol = symbol;
             symbols[symbol] = true;
+        }
+
+        public string ToJson()
+        {
+            Console.WriteLine("Serialize SymbolPiece");
+            return JsonSerializer.Serialize(this);
         }
 
     }

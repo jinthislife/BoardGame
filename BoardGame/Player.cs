@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Text.Json;
+
 namespace BoardGame
 {
     public abstract class Player
     //public class Player
     {
-        public Piece piece;
-        protected String name;
+        public String name { get; set; }
+        public object piece { get; set; }
 
         public Player(String name, Piece piece)
         {
@@ -20,6 +22,13 @@ namespace BoardGame
         public override string ToString()
         {
             return ($"{name}");
+        }
+
+        public string ToJson()
+        {
+            Console.WriteLine("Serialize Player");
+
+            return JsonSerializer.Serialize(this);
         }
 
     }

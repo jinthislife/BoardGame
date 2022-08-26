@@ -28,6 +28,7 @@ namespace BoardGame
         protected abstract Player createHumanPlayer(int playerNumbers);
         protected abstract Piece createPieceForPlayer(string name);
         public Board board;
+        public Storage storage;
         public MoveTracker moveTracker;
         protected bool gameFinished = false;
         //public virtual Player createHumanPlayer();
@@ -35,7 +36,6 @@ namespace BoardGame
        
         protected Player currentPlayer;
         public int curPlayerID;
-        //public List<Player> Players = new List<Player>();
         public Player[] players = { };
 
         public virtual Board createBoard(int width, int height)
@@ -94,12 +94,10 @@ namespace BoardGame
                 Player p = createHumanPlayer(playerNumbers);
                 players[playerNumbers] = p;
                 playerNumbers++;
-                //Players.Add(p);
 
                 Piece piece = createPieceForPlayer("AI");
                 Player ai = new AIPlayer(piece: piece);
                 players[playerNumbers] = ai;
-                //Players.Add(ai);
             }
 
         }

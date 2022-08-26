@@ -16,7 +16,7 @@ namespace BoardGame
             int mode = SelectGameMode();
             createPlayers(mode);
             board = createBoard(width: 3, height: 3);
-
+            storage = new Storage();
             moveTracker = new MoveTracker();
         }
 
@@ -40,11 +40,18 @@ namespace BoardGame
                         moveTracker.Redo();
                         break;
                     case "save":
-                        // savecommand.execute();
+                        cmd = new SaveCommand(storage, board);
+                        cmd.Execute();
+                        break;
                     case "load":
-                        // loadcommand.execute();
+                        cmd = new LoadCommand(storage, board);
+                        cmd.Execute();
+                        break;
                     case "help":
-                        //helpcommand.execute();
+                        cmd = new HelpCommand();
+                        cmd.Execute();
+                        break;
+                    case "quit":
                         break;
                     case string movestr when movestr.StartsWith("place"):
                         Move move = generateMoveFrom(movestr);
@@ -84,12 +91,9 @@ namespace BoardGame
             {
                 return new Move(r, c, currentPlayer);
             }
-            else
-            {
-                Console.WriteLine("Failed to place your move. Please try again!");
-            }
-            return null; // QQ ok?
 
+            Console.WriteLine("Failed to place your move. Please try again!");
+            return null; // QQ ok?
         }
 
         protected override void displayIntro()

@@ -8,13 +8,13 @@ namespace BoardGame
         private Stack<PlaceCommand> _Undoables = new Stack<PlaceCommand>();
         private Stack<PlaceCommand> _Redoables = new Stack<PlaceCommand>();
 
-        protected Move[,] moves; // rename to state
+        //protected Move[,] moves; // rename to state
  
 
-        public MoveTracker()
-        {
-            moves = new Move[3,3];
-        }
+        //public MoveTracker()
+        //{
+        //    moves = new Move[3,3];
+        //}
 
         public void Undo()
         {

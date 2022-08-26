@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BoardGame
@@ -74,6 +75,34 @@ namespace BoardGame
 
          }
 
+        public List<Move> getStates()
+        {
+            List<Move> movelist = new List<Move>();
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    if (grid[i, j] != null)
+                    {
+                        Console.WriteLine($"Append to list {i} {j}");
+                        movelist.Add(grid[i, j]);
+                    }
+                }
+            }
+
+            return movelist;
+        }
+
+        public void loadStates(List<Move> moves)
+        {
+            foreach (Move move in moves)
+            {
+                grid[move.row, move.col] = move;
+            }
+            Console.WriteLine($"Total: {moves.Count}");
+            render();
+        }
+
         public int[] getEmptyModule()
         {
             for (int i = 0; i < row; i++)
@@ -91,7 +120,7 @@ namespace BoardGame
 
         public bool checkValidMove(int x, int y)
         {
-            if (x > row || y > column)
+            if (x > (row - 1)  || y > (column - 1))
             {
                 Console.WriteLine("The move is out of valid range.");
                 return false;

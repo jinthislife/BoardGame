@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+using System.Xml.Linq;
+
 namespace BoardGame
 {
     //public class Move: ICommand
@@ -32,17 +38,30 @@ namespace BoardGame
 
     public class Move
     {
-        public int row;
-        public int col;
-        public Player player;
+        public int row { get; set; }
+        public int col { get; set; }
+        public Player player { get; set; }
 
+        
         public Move(int row, int col, Player player)
         {
             this.row = row;
             this.col = col;
             this.player = player;
-            //this.moveTracker = moveTracker;
-            //this.board = board;
+        }
+
+        public override string ToString()
+        {
+            return $"{row},{col},{player.name},{piece}";
+        }
+
+        public string ToJson()
+        {
+            //var params = new Dictionary<string, T> { { "row", row } };
+            //return JsonSerializer.Serialize (params);
+            Console.WriteLine("Serialize Move");
+
+            return JsonSerializer.Serialize(this);
         }
     }
 }
