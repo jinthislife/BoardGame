@@ -12,7 +12,7 @@ namespace BoardGame
         public override string play(Board board)
         {
             Thread.Sleep(3000);
-            int[] loc = board.getEmptyModule();
+            int[] loc = board.getEmptyLoc();
             Console.Write($"AI placed {loc[0]} {loc[1]}");
             return loc == null ? "" : $"place {loc[0]} {loc[1]}";
         }

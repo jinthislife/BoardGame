@@ -106,7 +106,7 @@ namespace BoardGame
             render();
         }
 
-        public int[] getEmptyModule()
+        public int[] getEmptyLoc()
         {
             for (int i = 0; i < row; i++)
             {
