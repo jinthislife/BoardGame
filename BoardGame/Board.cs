@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
 
 namespace BoardGame
 {
-    public class Board
+    public abstract class Board
     {
         private int row;
         private int column;
         public Move[,] grid;
+
+        // let subclass implement checkWin
+        // as each game has different rules to decide win
+        public abstract bool checkWin(Move latest);
+
         public Board(int width, int height)
         {
             row = width;
@@ -119,7 +123,7 @@ namespace BoardGame
 
         public bool checkValidMove(int x, int y)
         {
-            if (x > (row - 1)  || y > (column - 1))
+            if (x > (row - 1) || y > (column - 1))
             {
                 Console.WriteLine("The move is out of valid range.");
                 return false;
@@ -132,72 +136,6 @@ namespace BoardGame
             }
 
             return true;
-        }
-
-        // TODO: wincheck except diag/antidiagonal
-        public bool winningLineExists(Move latest)
-        {
-            // check col
-            for (int col = 0; col < 3; col++)
-            {
-                if (grid[latest.row, col] == null || grid[latest.row, col].player != latest.player)
-                {
-                    break;
-                }
-                else if (col == 2)
-                {
-                    return true;
-                }
-            }
-
-            // check row
-            for (int row = 0; row < 3; row++)
-            {
-                if (grid[row, latest.col] == null || grid[row, latest.col].player != latest.player)
-                {
-                    break;
-                }
-                else if (row == 2)
-                {
-                    return true;
-                }
-            }
-
-            // check diag
-            if (latest.row == latest.col)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (grid[i, i] == null || grid[i, i].player != latest.player)
-                    {
-                        break;
-                    }
-                    else if (i == 2)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            // check anti-diagonal
-            if (latest.row + latest.col == 2)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (grid[i, 2 - i] == null || grid[i, 2 - i].player != latest.player)
-                    {
-                        break;
-                    }
-                    else if (i == 2)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            //check draw??
-
-            return false;
         }
     }
 }

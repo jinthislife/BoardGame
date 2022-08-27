@@ -3,13 +3,15 @@ namespace BoardGame
 {
     public class HelpCommand : ICommand
     {
-        public HelpCommand()
+        HelpSystem _helpSystem;
+        public HelpCommand(HelpSystem helpSystem)
         {
+            this._helpSystem = helpSystem;
         }
 
         public void Execute()
         {
-            throw new NotImplementedException();
+            _helpSystem.displayManual();
         }
     }
 }

@@ -17,7 +17,6 @@ namespace BoardGame
         //public abstract void makeMove(MoveTracker moveTracker);
         public abstract string play(Board board);
 
-
         public override string ToString()
         {
             return ($"{name}");

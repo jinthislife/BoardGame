@@ -20,7 +20,6 @@ namespace BoardGame
         public ColorPiece(String color)
         {
             this.color = color;
-           
         }
 
         public override string ToString()
@@ -33,9 +32,9 @@ namespace BoardGame
     {
         static protected Dictionary<Char, bool>  symbols = new Dictionary<Char, bool>{ ['O'] = false, ['X'] = false };
 
-        public Char symbol { get; set; }//QQ"
+        public Char symbol; //  readonly
 
-        static public Char[] getAvailableSymbols()
+        static public Char[] getAvailable()
         {
             return symbols.Where(s => s.Value == false).ToDictionary(s => s.Key, s => s.Value).Keys.ToArray();
         }
