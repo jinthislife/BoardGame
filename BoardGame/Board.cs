@@ -75,7 +75,6 @@ namespace BoardGame
                 }
                 Console.Write("\n");
             }
-
          }
 
         public List<Move> getStates()
@@ -92,7 +91,6 @@ namespace BoardGame
                     }
                 }
             }
-
             return movelist;
         }
 

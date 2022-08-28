@@ -7,7 +7,6 @@ namespace BoardGame
         {
         }
 
-
         // TODO: wincheck except diag/antidiagonal
         public override bool checkWin(Move latest)
         {
@@ -70,9 +69,7 @@ namespace BoardGame
             }
 
             //check draw??
-
             return false;
         }
     }
 }
-

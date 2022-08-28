@@ -56,8 +56,6 @@ namespace BoardGame
                         HelpCommand help = new HelpCommand(helpSystem);
                         help.Execute();
                         break;
-                    case "quit":
-                        break;
                     case string movestr when movestr.StartsWith("place"):
                         Move move = moveFrom(movestr);
                         if (move != null)

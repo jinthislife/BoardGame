@@ -6,11 +6,14 @@ namespace BoardGame
 {
     public abstract class Storage
     {
-        private const string FILENAME = "gamestate.txt";
 
         public Storage()
         {
         }
+
+        public abstract string FILENAME { get; }
+
+        public abstract Move parseLine(String line);
 
         public void save(List<Move> moves)
         {
@@ -52,43 +55,6 @@ namespace BoardGame
             }
 
             return moves;
-        }
-
-        private Move parseLine(String line)
-        {
-            int row, col, isHuman;
-            String[] slices = line.Split(",");
-           
-            if (int.TryParse(slices[0], out row) &&
-                int.TryParse(slices[1], out col) &&
-                int.TryParse(slices[2], out isHuman))
-            {
-                Piece piece;
-                Player player;
-
-                if (slices[4] == "BoardGame.SymbolPiece")
-                {
-                    piece = new SymbolPiece(symbol: slices[5].ToCharArray()[0]);
-                }
-                else
-                {
-                    piece = new ColorPiece(color: slices[5]);
-                }
-
-                if (isHuman == 0)
-                {
-                    player = new AIPlayer(piece, slices[2]);
-                }
-                else
-                {
-                    player = new HumanPlayer(piece, slices[2]);
-                }
-                return new Move(row, col, player);
-            }
-            else
-            {
-                throw new InvalidDataException();
-            }      
         }
     }
 }
