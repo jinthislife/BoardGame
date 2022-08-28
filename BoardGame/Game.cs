@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace BoardGame
 {
-    class Game // QQ: abstract vs normal class
+    class Game
     {
         public Board board;
         public Storage storage;
@@ -101,6 +101,14 @@ namespace BoardGame
             return players;
         }
 
+        protected Player changeTurns()
+        {
+            Thread.Sleep(2000);
+
+            curPlayerID = (curPlayerID + 1) % 2;
+            Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
+            return players[curPlayerID];
+        }
 
         private Move moveFrom(String moveStr)
         {
@@ -118,15 +126,6 @@ namespace BoardGame
 
             Console.WriteLine("Failed to place your move. Please try again!");
             return null; // QQ ok?
-        }
-
-        protected Player changeTurns()
-        {
-            Thread.Sleep(2000);
-
-            curPlayerID = (curPlayerID + 1) % 2;
-            Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
-            return players[curPlayerID];
         }
     }
 }

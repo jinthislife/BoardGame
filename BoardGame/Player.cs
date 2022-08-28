@@ -3,7 +3,6 @@
 namespace BoardGame
 {
     public abstract class Player
-    //public class Player
     {
         public String name { get; set; }
         public Piece piece { get; set; }
@@ -14,7 +13,6 @@ namespace BoardGame
             this.piece = piece;
         }
 
-        //public abstract void makeMove(MoveTracker moveTracker);
         public abstract string play(Board board);
 
         public override string ToString()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BoardGame
 {
-    public class Storage
+    public abstract class Storage
     {
         private const string FILENAME = "gamestate.txt";
 

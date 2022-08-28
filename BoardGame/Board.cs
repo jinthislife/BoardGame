@@ -125,7 +125,7 @@ namespace BoardGame
         {
             if (x > (row - 1) || y > (column - 1))
             {
-                Console.WriteLine("The move is out of valid range.");
+                Console.WriteLine("Out of valid range.");
                 return false;
             }
 
