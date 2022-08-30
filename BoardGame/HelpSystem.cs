@@ -7,7 +7,7 @@ namespace BoardGame
         //abstract public void displayIntro();
 
         // template method
-        public void displayManual()
+        public void DisplayManual()
         {
             Console.WriteLine("General commands manual");
         }

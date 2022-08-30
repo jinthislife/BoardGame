@@ -9,10 +9,10 @@ namespace BoardGame
         {
         }
 
-        public override string play(Board board)
+        public override string Play(Board board)
         {
             Thread.Sleep(3000);
-            int[] loc = board.getEmptyLoc();
+            int[] loc = board.GetEmptyLoc();
             Console.Write($"AI placed {loc[0]} {loc[1]}");
             return loc == null ? "" : $"place {loc[0]} {loc[1]}";
         }

@@ -26,15 +26,15 @@ namespace BoardGame
             moveTracker = new MoveTracker();
         }
 
-        public void run()
+        public void Run()
         {
             //helpSystem.displayIntro();
-            board.render();
-            currentPlayer = changeTurns();
+            board.Render();
+            currentPlayer = ChangeTurns();
 
             while (!gameFinished)
             {
-                string input = currentPlayer.play(board);
+                string input = currentPlayer.Play(board);
 
                 switch (input)
                 {
@@ -57,19 +57,19 @@ namespace BoardGame
                         help.Execute();
                         break;
                     case string movestr when movestr.StartsWith("place"):
-                        Move move = moveFrom(movestr);
+                        Move move = MoveFrom(movestr);
                         if (move != null)
                         {
                             PlaceCommand place = new PlaceCommand(move, moveTracker, board);
                             place.Execute();
 
-                            if (board.checkWin(move))
+                            if (board.CheckWin(move))
                             {
                                 gameFinished = true;
                             }
                             else
                             {
-                                currentPlayer = changeTurns();
+                                currentPlayer = ChangeTurns();
                             }
                         }
                         break;
@@ -99,7 +99,7 @@ namespace BoardGame
             return players;
         }
 
-        protected Player changeTurns()
+        protected Player ChangeTurns()
         {
             Thread.Sleep(2000);
 
@@ -108,7 +108,7 @@ namespace BoardGame
             return players[curPlayerID];
         }
 
-        private Move moveFrom(String moveStr)
+        private Move MoveFrom(String moveStr)
         {
             int r, c;
             String[] cmdSlices = moveStr.Split(' ');
@@ -116,7 +116,7 @@ namespace BoardGame
             if (cmdSlices.Length == 3 &&
                 int.TryParse(cmdSlices[1], out r) &&
                 int.TryParse(cmdSlices[2], out c) &&
-                board.checkValidMove(x: r, y: c)
+                board.CheckValidMove(x: r, y: c)
              )
             {
                 return new Move(r, c, currentPlayer);

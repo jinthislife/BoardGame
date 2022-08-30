@@ -12,7 +12,7 @@ namespace BoardGame
 
         public void Execute()
         {
-            _helpSystem.displayManual();
+            _helpSystem.DisplayManual();
         }
     }
 }

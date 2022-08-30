@@ -11,9 +11,9 @@ namespace BoardGame
             Console.WriteLine("*            Welcome to BoardGame             *");
             Console.WriteLine("***********************************************");
 
-            GameFactory factory = GameFactory.getUserSelection();
+            GameFactory factory = GameFactory.GetUserSelection();
             Game game = new Game(factory);
-            game.run();
+            game.Run();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BoardGame
 
         public void Execute()
         {
-            _board.loadStates(_storage.load());
+            _board.LoadStates(_storage.Load());
         }
     }
 }

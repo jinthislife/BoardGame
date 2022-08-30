@@ -10,7 +10,7 @@ namespace BoardGame
 
         public Char symbol; //  readonly
 
-        static public Char[] getAvailable()
+        static public Char[] GetAvailable()
         {
             return symbols.Where(s => s.Value == false).ToDictionary(s => s.Key, s => s.Value).Keys.ToArray();
         }

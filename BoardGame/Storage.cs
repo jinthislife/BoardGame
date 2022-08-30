@@ -13,9 +13,9 @@ namespace BoardGame
 
         public abstract string FILENAME { get; }
 
-        public abstract Move parseLine(String line);
+        public abstract Move ParseLine(String line);
 
-        public void save(List<Move> moves)
+        public void Save(List<Move> moves)
         {
             FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);
             StreamWriter writer = new StreamWriter(outFile);
@@ -29,7 +29,7 @@ namespace BoardGame
             outFile.Close();
         }
 
-        public List<Move> load()
+        public List<Move> Load()
         {
             FileStream inFile = new FileStream(FILENAME, FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(inFile);
@@ -43,7 +43,7 @@ namespace BoardGame
                 {
                     Console.WriteLine($"{recordIn}");
 
-                    Move m = parseLine(recordIn);
+                    Move m = ParseLine(recordIn);
                     moves.Add(m);
                     recordIn = reader.ReadLine();
                 }

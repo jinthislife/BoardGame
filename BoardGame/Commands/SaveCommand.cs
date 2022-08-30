@@ -14,8 +14,7 @@ namespace BoardGame
 
         public void Execute()
         {
-            _storage.save(_board.getStates());
+            _storage.Save(_board.GetStates());
         }
     }
 }
-

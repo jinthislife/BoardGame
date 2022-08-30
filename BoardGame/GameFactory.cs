@@ -12,11 +12,11 @@ namespace BoardGame
     abstract class GameFactory
     {
         public abstract Board CreateBoard();
-        public abstract Piece CreatePiece(string playername);
         public abstract Storage CreateStorage();
         public abstract HelpSystem CreateHelpSystem();
+        public abstract Piece CreatePiece(string playername);
 
-        public static GameFactory getUserSelection()
+        public static GameFactory GetUserSelection()
         {
             do
             {

@@ -11,7 +11,7 @@ namespace BoardGame
 
         // let subclass implement checkWin
         // as each game has different rules to decide win
-        public abstract bool checkWin(Move latest);
+        public abstract bool CheckWin(Move latest);
 
         public Board(int width, int height)
         {
@@ -20,19 +20,19 @@ namespace BoardGame
             grid = new Move[width, height];
         }
 
-        public void place(Move move)
+        public void Place(Move move)
         {
             grid[move.row, move.col] = move;
-            render();
+            Render();
         }
 
-        public void withdraw(Move move)
+        public void Withdraw(Move move)
         {
             grid[move.row, move.col] = null;
-            render();
+            Render();
         }
 
-        public void render()
+        public void Render()
         {
             const int moduleWidth = 6; //QQ: naming convention
             const int moduleHeight = 3;
@@ -77,7 +77,7 @@ namespace BoardGame
             }
          }
 
-        public List<Move> getStates()
+        public List<Move> GetStates()
         {
             List<Move> movelist = new List<Move>();
             for (int i = 0; i < row; i++)
@@ -94,17 +94,17 @@ namespace BoardGame
             return movelist;
         }
 
-        public void loadStates(List<Move> moves)
+        public void LoadStates(List<Move> moves)
         {
             foreach (Move move in moves)
             {
                 grid[move.row, move.col] = move;
             }
             Console.WriteLine($"Total: {moves.Count}");
-            render();
+            Render();
         }
 
-        public int[] getEmptyLoc()
+        public int[] GetEmptyLoc()
         {
             for (int i = 0; i < row; i++)
             {
@@ -119,7 +119,7 @@ namespace BoardGame
             return null;
         }
 
-        public bool checkValidMove(int x, int y)
+        public bool CheckValidMove(int x, int y)
         {
             if (x > (row - 1) || y > (column - 1))
             {

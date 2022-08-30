@@ -10,9 +10,19 @@ namespace BoardGame
             return new TicTacToeBoard(width: 3, height: 3);
         }
 
+        public override Storage CreateStorage()
+        {
+            return new TicTacToeStorage();
+        }
+
+        public override HelpSystem CreateHelpSystem()
+        {
+            return new TicTacToeHelpSystem();
+        }
+
         public override Piece CreatePiece(string playername)
         {
-            Char[] availableSymbols = SymbolPiece.getAvailable();
+            Char[] availableSymbols = SymbolPiece.GetAvailable();
             char symbol = availableSymbols[0];
 
             if (availableSymbols.Length > 1)
@@ -24,18 +34,8 @@ namespace BoardGame
                     Console.Write("\n");
                 } while (!availableSymbols.Contains(symbol));
             }
-      
+
             return new SymbolPiece(symbol: symbol);
-        }
-
-        public override Storage CreateStorage()
-        {
-            return new TicTacToeStorage();
-        }
-
-        public override HelpSystem CreateHelpSystem()
-        {
-            return new TicTacToeHelpSystem();
         }
     }
 }

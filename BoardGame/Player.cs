@@ -4,7 +4,7 @@ namespace BoardGame
 {
     public abstract class Player
     {
-        public String name { get; set; }
+        public String name { get; set; } // QQ need to be properties?
         public Piece piece { get; set; }
 
         public Player(Piece piece, String name)
@@ -13,7 +13,7 @@ namespace BoardGame
             this.piece = piece;
         }
 
-        public abstract string play(Board board);
+        public abstract string Play(Board board);
 
         public override string ToString()
         {

@@ -3,12 +3,13 @@ namespace BoardGame
 {
     public class TicTacToeBoard : Board
     {
+        //Need to create init for subclass Ticboard?
         public TicTacToeBoard(int width, int height) : base(width, height)
         {
         }
 
         // TODO: wincheck except diag/antidiagonal
-        public override bool checkWin(Move latest)
+        public override bool CheckWin(Move latest)
         {
             // check col
             for (int col = 0; col < 3; col++)

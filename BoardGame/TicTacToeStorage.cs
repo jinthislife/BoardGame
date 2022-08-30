@@ -14,7 +14,7 @@ namespace BoardGame
             get => "tictactoe.txt";
         }
 
-        public override Move parseLine(String line)
+        public override Move ParseLine(String line)
         {
             int row, col, isHuman;
             String[] slices = line.Split(",");
