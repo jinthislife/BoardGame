@@ -13,7 +13,7 @@ namespace BoardGame
         private HelpSystem helpSystem;
         private Player[] players;
         private Player currentPlayer;
-        private int curPlayerID;
+        private int curPlayerID = 1;
         private bool gameFinished = false;
 
         public Game(GameFactory factory)
@@ -85,16 +85,21 @@ namespace BoardGame
         private Player[] CreatePlayers(int mode, Func<string, Piece> CreatePiece)
         { 
             Player CreateHumanPlayer(int playerNumber)
-            {
-                Console.Write($"Enter name for Player {playerNumber}: ");
-                String name = Console.ReadLine();
+            {         
+                String name = "";
+                while (name.Length <= 0)
+                {
+                    Console.Write($"Enter name for Player {playerNumber}: ");
+                    name = Console.ReadLine();
+                }
+
                 return new HumanPlayer(name: name, piece: CreatePiece(name));
             }
 
             Player[] players = new Player[2];
             players[0] = CreateHumanPlayer(1);
             players[1] = (mode == 1) ? CreateHumanPlayer(2) : new AIPlayer(piece: CreatePiece("AI"));
-            Console.Write($"{players[0].Name} got '{players[0].Piece.ToString()}'. {players[1].Name} got '{players[1].Piece.ToString()}'");
+            Console.Write($"\n{players[0].Name} got '{players[0].Piece.ToString()}'. {players[1].Name} got '{players[1].Piece.ToString()}'");
 
             return players;
         }
@@ -104,7 +109,7 @@ namespace BoardGame
             Thread.Sleep(2000);
 
             curPlayerID = (curPlayerID + 1) % 2;
-            Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
+            //Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
             return players[curPlayerID];
         }
 

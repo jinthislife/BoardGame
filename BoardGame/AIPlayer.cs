@@ -11,6 +11,7 @@ namespace BoardGame
 
         public override string Play(Board board)
         {
+            Console.WriteLine($"\nIt's AI's turn now!");
             Thread.Sleep(3000);
             int[] loc = board.GetEmptyLoc();
             Console.Write($"AI placed {loc[0]} {loc[1]}");
