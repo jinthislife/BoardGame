@@ -17,7 +17,6 @@ namespace BoardGame
         public void Execute()
         {
             board.Place(move);
-            moveTracker.Insert(this);
         }
 
         public void UnExecute()

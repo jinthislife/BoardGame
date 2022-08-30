@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace BoardGame
 {
@@ -63,6 +60,7 @@ namespace BoardGame
                         {
                             PlaceCommand place = new PlaceCommand(move, moveTracker, board);
                             place.Execute();
+                            moveTracker.Insert(place);
 
                             if (board.CheckWin(move))
                             {
