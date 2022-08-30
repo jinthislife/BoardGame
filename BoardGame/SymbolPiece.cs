@@ -8,7 +8,7 @@ namespace BoardGame
     {
         static protected Dictionary<Char, bool> symbols = new Dictionary<Char, bool> { ['O'] = false, ['X'] = false };
 
-        public Char symbol; //  readonly
+        public readonly Char symbol; //  readonly.done
 
         static public Char[] GetAvailable()
         {

@@ -3,13 +3,13 @@ using System.ComponentModel;
 
 namespace BoardGame
 {
-    enum Games
+    public enum Games
     {
         TicTacToe = 1,
         Othello
     }
 
-    abstract class GameFactory
+    public abstract class GameFactory
     {
         public abstract Board CreateBoard();
         public abstract Storage CreateStorage();

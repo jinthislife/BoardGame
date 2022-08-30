@@ -3,8 +3,8 @@ namespace BoardGame
 {
     public class LoadCommand : ICommand
     {
-        Storage _storage;
-        Board _board;
+        private Storage _storage;
+        private Board _board;
 
         public LoadCommand(Storage storage, Board board)
         {

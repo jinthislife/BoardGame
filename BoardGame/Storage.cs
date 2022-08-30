@@ -6,14 +6,9 @@ namespace BoardGame
 {
     public abstract class Storage
     {
+        protected abstract string FILENAME { get; }
 
-        public Storage()
-        {
-        }
-
-        public abstract string FILENAME { get; }
-
-        public abstract Move ParseLine(String line);
+        protected abstract Move ParseLine(String line);
 
         public void Save(List<Move> moves)
         {

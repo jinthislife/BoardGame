@@ -7,14 +7,14 @@ namespace BoardGame
 {
     class Game
     {
-        public Board board;
-        public Storage storage;
-        public MoveTracker moveTracker;
-        public HelpSystem helpSystem;
-        public Player[] players;
-        protected Player currentPlayer;
-        public int curPlayerID;
-        protected bool gameFinished = false;
+        private Board board;
+        private Storage storage;
+        private MoveTracker moveTracker;
+        private HelpSystem helpSystem;
+        private Player[] players;
+        private Player currentPlayer;
+        private int curPlayerID;
+        private bool gameFinished = false;
 
         public Game(GameFactory factory)
         {
@@ -82,7 +82,7 @@ namespace BoardGame
             Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
         }
 
-        public Player[] CreatePlayers(int mode, Func<string, Piece> CreatePiece)
+        private Player[] CreatePlayers(int mode, Func<string, Piece> CreatePiece)
         { 
             Player CreateHumanPlayer(int playerNumber)
             {
@@ -94,12 +94,12 @@ namespace BoardGame
             Player[] players = new Player[2];
             players[0] = CreateHumanPlayer(1);
             players[1] = (mode == 1) ? CreateHumanPlayer(2) : new AIPlayer(piece: CreatePiece("AI"));
-            Console.Write($"{players[0].name} got '{players[0].piece.ToString()}'. {players[1].name} got '{players[1].piece.ToString()}'");
+            Console.Write($"{players[0].Name} got '{players[0].Piece.ToString()}'. {players[1].Name} got '{players[1].Piece.ToString()}'");
 
             return players;
         }
 
-        protected Player ChangeTurns()
+        private Player ChangeTurns()
         {
             Thread.Sleep(2000);
 

@@ -3,7 +3,7 @@ namespace BoardGame
 {
     public class HelpCommand : ICommand
     {
-        HelpSystem _helpSystem;
+        private HelpSystem _helpSystem;
 
         public HelpCommand(HelpSystem helpSystem)
         {

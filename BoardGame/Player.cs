@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace BoardGame
 {
     public abstract class Player
     {
-        public String name { get; set; } // QQ need to be properties?
-        public Piece piece { get; set; }
+        public Piece Piece { get; }
+        public String Name { get; }
 
-        public Player(Piece piece, String name)
+        protected Player(Piece piece, String name)
         {
-            this.name = name;
-            this.piece = piece;
+            this.Piece = piece;
+            this.Name = name;
         }
 
         public abstract string Play(Board board);
 
         public override string ToString()
         {
-            return ($"{name}");
+            return ($"{Name}");
         }
     }
 }

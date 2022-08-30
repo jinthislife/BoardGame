@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace BoardGame
 {
-    class TicTacToeFactory : GameFactory //public?
+    public class TicTacToeFactory : GameFactory
     {
         public override Board CreateBoard()
         {

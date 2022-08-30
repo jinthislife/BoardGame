@@ -7,15 +7,15 @@ namespace BoardGame
 {
     public abstract class Piece
     {
-        public Piece()
-        {
+        //protected Piece()
+        //{
 
-        }
+        //}
     }
 
     public class ColorPiece : Piece
     {
-        protected String color;
+        private String color;
 
         public ColorPiece(String color)
         {

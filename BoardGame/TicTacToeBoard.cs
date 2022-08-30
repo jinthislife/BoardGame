@@ -3,7 +3,6 @@ namespace BoardGame
 {
     public class TicTacToeBoard : Board
     {
-        //Need to create init for subclass Ticboard?
         public TicTacToeBoard(int width, int height) : base(width, height)
         {
         }

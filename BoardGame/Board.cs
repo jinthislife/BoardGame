@@ -7,13 +7,13 @@ namespace BoardGame
     {
         private int row;
         private int column;
-        public Move[,] grid;
+        protected Move[,] grid;
 
         // let subclass implement checkWin
         // as each game has different rules to decide win
         public abstract bool CheckWin(Move latest);
 
-        public Board(int width, int height)
+        protected Board(int width, int height)
         {
             row = width;
             column = height;
@@ -64,7 +64,7 @@ namespace BoardGame
                         }
                         else
                         {
-                            SymbolPiece piece = grid[gridRow, gridCol].player.piece as SymbolPiece;
+                            SymbolPiece piece = grid[gridRow, gridCol].player.Piece as SymbolPiece;
                             Console.Write(piece.symbol);
                         }
                     }

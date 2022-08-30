@@ -5,16 +5,16 @@ namespace BoardGame
 {
     public class TicTacToeStorage : Storage
     {
-        public TicTacToeStorage()
-        {
-        }
+        //public TicTacToeStorage()
+        //{
+        //}
 
-        public override string FILENAME
+        protected override string FILENAME
         {
             get => "tictactoe.txt";
         }
 
-        public override Move ParseLine(String line)
+        protected override Move ParseLine(String line)
         {
             int row, col, isHuman;
             String[] slices = line.Split(",");

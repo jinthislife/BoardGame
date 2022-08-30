@@ -3,7 +3,7 @@ namespace BoardGame
 {
     public interface ICommand
     {
-        void Execute();
+        public void Execute();
     }
 
 }
