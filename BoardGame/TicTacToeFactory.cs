@@ -20,22 +20,15 @@ namespace BoardGame
             return new TicTacToeHelpSystem();
         }
 
-        public override Piece CreatePiece(string playername)
+        public override Piece CreatePiece()
         {
             Char[] availableSymbols = SymbolPiece.GetAvailable();
-            char symbol = availableSymbols[0];
 
-            if (availableSymbols.Length > 1)
-            {
-                do
-                {
-                    Console.Write($"{playername}, select your piece either 'O' or 'X' : ");
-                    symbol = Console.ReadKey().KeyChar;
-                    Console.Write("\n");
-                } while (!availableSymbols.Contains(symbol));
+            if (availableSymbols.Length == 0) {
+                throw new ArgumentOutOfRangeException();
             }
 
-            return new SymbolPiece(symbol: symbol);
+            return new SymbolPiece(symbol: availableSymbols[0]);
         }
     }
 }

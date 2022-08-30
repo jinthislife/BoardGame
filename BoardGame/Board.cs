@@ -64,7 +64,8 @@ namespace BoardGame
                         }
                         else
                         {
-                            SymbolPiece piece = grid[gridRow, gridCol].player.Piece as SymbolPiece;
+                            SymbolPiece piece = grid[gridRow, gridCol].piece as SymbolPiece;
+
                             Console.Write(piece.symbol);
                         }
                     }

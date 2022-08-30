@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace BoardGame
 {
@@ -82,25 +83,23 @@ namespace BoardGame
             Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
         }
 
-        private Player[] CreatePlayers(int mode, Func<string, Piece> CreatePiece)
-        { 
-            Player CreateHumanPlayer(int playerNumber)
-            {         
-                String name = "";
-                while (name.Length <= 0)
-                {
-                    Console.Write($"Enter name for Player {playerNumber}: ");
-                    name = Console.ReadLine();
-                }
 
-                return new HumanPlayer(name: name, piece: CreatePiece(name));
+        private Player[] CreatePlayers(int mode, Func<Piece> CreatePiece)
+        {
+            Player[] players = new Player[2];
+            players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());
+
+            if (mode == 1)
+            {
+                players[1] = new HumanPlayer(Id: 2, piece: CreatePiece());
+            }
+            else
+            {
+                players[1] = new AIPlayer(Id: 2, piece: CreatePiece());
             }
 
-            Player[] players = new Player[2];
-            players[0] = CreateHumanPlayer(1);
-            players[1] = (mode == 1) ? CreateHumanPlayer(2) : new AIPlayer(piece: CreatePiece("AI"));
-            Console.Write($"\n{players[0].Name} got '{players[0].Piece.ToString()}'. {players[1].Name} got '{players[1].Piece.ToString()}'");
-
+            Console.Write($"\n{players[0].ToString()} got '{players[0].Piece.ToString()}'. ");
+            Console.WriteLine($"{players[1].ToString()} got '{players[1].Piece.ToString()}'.");
             return players;
         }
 
@@ -109,7 +108,6 @@ namespace BoardGame
             Thread.Sleep(2000);
 
             curPlayerID = (curPlayerID + 1) % 2;
-            //Console.WriteLine($"\n{players[curPlayerID].ToString()}, your turn!");
             return players[curPlayerID];
         }
 
@@ -124,7 +122,7 @@ namespace BoardGame
                 board.CheckValidMove(x: r, y: c)
              )
             {
-                return new Move(r, c, currentPlayer);
+                return new Move(r, c, currentPlayer.Piece);
             }
 
             Console.WriteLine("Failed to place your move. Please try again!");

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace BoardGame
 {
     public class HumanPlayer : Player
     {
-        public HumanPlayer(Piece piece, string name) : base(piece, name)
+        // name taking process, save and restore add complexity, cannot be restored in the middle of the game
+        public HumanPlayer(int Id, Piece piece) : base(Id, piece)
         {
         }
 
@@ -15,6 +17,11 @@ namespace BoardGame
             string cmd = Console.ReadLine();
 
             return cmd;
+        }
+
+        public override string ToString()
+        {
+            return ($"Player-{Id}");
         }
     }
 }

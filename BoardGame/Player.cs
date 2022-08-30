@@ -5,21 +5,16 @@ namespace BoardGame
 {
     public abstract class Player
     {
+        public int Id { get; }
         public Piece Piece { get; }
-        public String Name { get; }
 
-        protected Player(Piece piece, String name)
+        protected Player(int Id, Piece piece)
         {
+            this.Id = Id;
             this.Piece = piece;
-            this.Name = name;
         }
 
         public abstract string Play(Board board);
-
-        public override string ToString()
-        {
-            return ($"{Name}");
-        }
     }
 }
 

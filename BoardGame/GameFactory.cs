@@ -8,7 +8,7 @@ namespace BoardGame
         public abstract Board CreateBoard();
         public abstract Storage CreateStorage();
         public abstract HelpSystem CreateHelpSystem();
-        public abstract Piece CreatePiece(string playername);
+        public abstract Piece CreatePiece();
     }
 
 }
