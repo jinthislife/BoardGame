@@ -27,6 +27,9 @@ namespace BoardGame
         public void Run()
         {
             //helpSystem.displayIntro();
+            //if fileexists
+            //    ask to load?
+
             board.Render();
             currentPlayer = ChangeTurns();
 
@@ -58,7 +61,7 @@ namespace BoardGame
                         Move move = MoveFrom(movestr);
                         if (move != null)
                         {
-                            PlaceCommand place = new PlaceCommand(move, moveTracker, board);
+                            PlaceCommand place = new PlaceCommand(move, board);
                             place.Execute();
                             moveTracker.Insert(place);
 

@@ -7,8 +7,10 @@
 
   <ItemGroup>
     <None Remove="Commands\" />
+    <None Remove="TicTacToe\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="TicTacToe\" />
   </ItemGroup>
 </Project>
