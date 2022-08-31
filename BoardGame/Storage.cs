@@ -10,18 +10,24 @@ namespace BoardGame
 
         protected abstract Move ParseLine(String line);
 
-        // Template Method 
         public bool ExistsPreviousState() => File.Exists(FILENAME) ? true : false;
-
-        // Template Method 
+ 
         public void Save(List<Move> moves)
         {
             FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);
             StreamWriter writer = new StreamWriter(outFile);
 
-            foreach (Move move in moves)
+            try
             {
-                writer.WriteLine(move.ToString());
+                foreach (Move move in moves)
+                {
+                    writer.WriteLine(move.ToString());
+                }
+                Console.WriteLine("\nSuccessfully saved.\n");
+            }
+            catch
+            {
+                Console.WriteLine("\nFailed to save.\n");
             }
 
             writer.Close();
@@ -41,8 +47,6 @@ namespace BoardGame
             {
                 try
                 {
-                    Console.WriteLine($"{recordIn}");
-
                     Move m = ParseLine(recordIn);
                     moves.Add(m);
                     recordIn = reader.ReadLine();
@@ -58,4 +62,3 @@ namespace BoardGame
         }
     }
 }
-

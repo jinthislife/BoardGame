@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace BoardGame
@@ -7,11 +8,12 @@ namespace BoardGame
     {
         public TicTacToeBoard(int width, int height) : base(width, height)
         {
+            moves = new Move[width, height];
         }
 
         public override void Render()
         {
-            const int moduleWidth = 6; //QQ: naming convention
+            const int moduleWidth = 6;
             const int moduleHeight = 3;
 
             int maxX = width * moduleWidth - 1;
@@ -116,6 +118,44 @@ namespace BoardGame
                 }
             }
             return false;
+        }
+
+        public override bool CheckAvailableLoc(int x, int y)
+        {
+            if (x > (width - 1) || y > (height - 1))
+            {
+                Console.Write("Out of valid range. ");
+                return false;
+            }
+
+            if (moves[x, y] != null)
+            {
+                Console.Write($"{x} {y} is already occupied. ");
+                return false;
+            }
+            return true;
+        }
+
+        public override List<(int, int)> GetAvaliableLocs()
+        {
+            List<(int, int)> locs = new List<(int, int)>();
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (moves[x, y] == null)
+                    {
+                        locs.Add((x, y));
+                    }
+                }
+            }
+            return locs;
+        }
+
+        public override int getOccupiedCount()
+        {
+            return ((width * height) - GetAvaliableLocs().Count);
         }
     }
 }

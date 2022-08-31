@@ -8,24 +8,25 @@ namespace BoardGame
         protected int width;
         protected int height;
         protected Move[,] moves;
-        public int CountOccupied
-        {
-            get =>
-                ((width * height) - GetAvaliableLocs().Count);
-        }
 
-        // let subclass implement checkWin
-        // as each game has different rules to decide win
-        public abstract bool CheckWin(Move latest);
+        // Some games need diffrent rendering and placement of pieces
+        // even though they use a board with same width and height.
+        // For example, Go requires that pieces are placed
+        // on the intersection of lines rather than inside sqaures.
+        // Therefore abstract methods below need to be implemented by derived classes.
         public abstract void Render();
+        public abstract bool CheckWin(Move latest);
+        public abstract bool CheckAvailableLoc(int x, int y);
+        public abstract List<(int, int)> GetAvaliableLocs();
+        public abstract int getOccupiedCount();
 
         protected Board(int width, int height)
         {
             this.width = width;
             this.height = height;
-            moves = new Move[width, height];
         }
 
+        // Template methods
         public void Place(Move move)
         {
             moves[move.locX, move.locY] = move;
@@ -47,7 +48,6 @@ namespace BoardGame
                 {
                     if (moves[x, y] != null)
                     {
-                        Console.WriteLine($"Append to list {x} {y}");
                         movelist.Add(moves[x, y]);
                     }
                 }
@@ -57,45 +57,19 @@ namespace BoardGame
 
         public void LoadStates(List<Move> movelist)
         {
-            foreach (Move move in movelist)
+            try
             {
-                moves[move.locX, move.locY] = move;
-            }
-            Console.WriteLine($"Total: {movelist.Count}");
-            Render();
-        }
-
-        public List<(int, int)> GetAvaliableLocs()
-        {
-            List<(int, int)> locs = new List<(int, int)>();
-
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
+                foreach (Move move in movelist)
                 {
-                    if (moves[x, y] == null)
-                    {
-                        locs.Add((x, y));
-                    }
+                    moves[move.locX, move.locY] = move;
                 }
+                Console.WriteLine("\nSuccessfully loaded from the saved state.");
             }
-            return locs;
-        }
-
-        public bool CheckAvailableLoc(int x, int y)
-        {
-            if (x > (width - 1) || y > (height - 1))
+            catch
             {
-                Console.WriteLine("Out of valid range.");
-                return false;
+                Console.WriteLine("\nFailed to load.");
             }
-
-            if (moves[x, y] != null)
-            {
-                Console.WriteLine($"{x} {y} is already occupied.");
-                return false;
-            }
-            return true;
+            Render();
         }
 
         public BoardGameState CheckState(Move latest)

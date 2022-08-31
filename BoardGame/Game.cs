@@ -19,7 +19,6 @@ namespace BoardGame
             helpSystem = factory.CreateHelpSystem();
             board = factory.CreateBoard();
             storage = factory.CreateStorage();
-
             players = factory.CreatePlayers(helpSystem.SelectGameMode(), factory.CreatePiece);
             moveTracker = new MoveTracker();
         }
@@ -73,7 +72,7 @@ namespace BoardGame
                             CheckGameState(move);
                             break;
                         }
-                        Console.WriteLine("Failed to place your move. Please try again!");
+                        Console.WriteLine("Please try again!");
                         break;
                     default:
                         Console.WriteLine("Invalid Command");
@@ -84,7 +83,7 @@ namespace BoardGame
 
         private Player ChangeTurns()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             curPlayerID = (curPlayerID + 1) % 2;
             return players[curPlayerID];
@@ -92,16 +91,16 @@ namespace BoardGame
 
         private bool LoadFromSavedState()
         {
-            Console.WriteLine("\nIf you want to start from the previously saved state, please type 'y'. If you want a fresh start , plase type any key.");
+            Console.WriteLine("\nIf you want to start from the previously saved state, please type 'y'. If you want a fresh start, plase type any key.");
             Console.Write(">> ");
             ConsoleKey input = Console.ReadKey().Key;
             if (input == ConsoleKey.Y)
             {
+                Thread.Sleep(200);
                 LoadCommand load = new LoadCommand(storage, board);
                 load.Execute();
-                Thread.Sleep(1500);
 
-                if ((board.CountOccupied % 2) == 1) currentPlayer = ChangeTurns();
+                if ((board.getOccupiedCount() % 2) == 1) currentPlayer = ChangeTurns();
                 return true;
             }
             return false;

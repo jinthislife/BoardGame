@@ -9,9 +9,8 @@ namespace BoardGame
 
     public enum BoardGameState
     {
-        Playing = 0,
-        Won = 1,
-        Draw = 2,
+        Playing,
+        Won,
+        Draw,
     }
 }
-

@@ -6,16 +6,15 @@ namespace BoardGame
     {
         //abstract public void displayIntro();
 
-        // template method
         public void DisplayManual()
         {
             Console.WriteLine("General commands manual");
         }
 
-        // template method
         public int SelectGameMode()
         {
             int mode;
+            string modeStr;
             do
             {
                 Console.WriteLine("Please select game mode");
@@ -23,11 +22,11 @@ namespace BoardGame
                 Console.WriteLine("2. Human vs AI");
                 Console.Write(">> ");
                 int.TryParse(Console.ReadLine(), out mode);
+                modeStr = mode == 1 ? "Human vs Human" : "Human vs AI";
             } while (mode != 1 && mode != 2);
 
-            Console.WriteLine($"Mode {mode} chosen.");
+            Console.WriteLine($"{modeStr} mode chosen.");
             return mode;
         }
     }
 }
-

@@ -16,4 +16,3 @@ namespace BoardGame
         public abstract string Play(Board board);
     }
 }
-
