@@ -10,8 +10,10 @@ namespace BoardGame
 
         protected abstract Move ParseLine(String line);
 
+        // Template Method 
         public bool ExistsPreviousState() => File.Exists(FILENAME) ? true : false;
 
+        // Template Method 
         public void Save(List<Move> moves)
         {
             FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);
@@ -26,6 +28,7 @@ namespace BoardGame
             outFile.Close();
         }
 
+        // Template Method 
         public List<Move> Load()
         {
             FileStream inFile = new FileStream(FILENAME, FileMode.Open, FileAccess.Read);

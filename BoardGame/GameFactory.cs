@@ -9,6 +9,6 @@ namespace BoardGame
         public abstract Storage CreateStorage();
         public abstract HelpSystem CreateHelpSystem();
         public abstract Piece CreatePiece();
+        public abstract Player[] CreatePlayers(int mode, Func<Piece> Createpiece);
     }
-
 }

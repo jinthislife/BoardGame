@@ -12,6 +12,7 @@ namespace BoardGame
             Console.WriteLine("General commands manual");
         }
 
+        // template method
         public int SelectGameMode()
         {
             int mode;

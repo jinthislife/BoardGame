@@ -5,108 +5,63 @@ namespace BoardGame
 {
     public abstract class Board
     {
-        private int row;
-        private int column;
-        protected Move[,] grid;
+        protected int width;
+        protected int height;
+        protected Move[,] moves;
         public int CountOccupied
         {
             get =>
-                ((row * column) - GetAvaliableLocs().Count);
+                ((width * height) - GetAvaliableLocs().Count);
         }
 
         // let subclass implement checkWin
         // as each game has different rules to decide win
         public abstract bool CheckWin(Move latest);
+        public abstract void Render();
 
         protected Board(int width, int height)
         {
-            row = width;
-            column = height;
-            grid = new Move[width, height];
+            this.width = width;
+            this.height = height;
+            moves = new Move[width, height];
         }
 
         public void Place(Move move)
         {
-            grid[move.row, move.col] = move;
+            moves[move.locX, move.locY] = move;
             Render();
         }
 
         public void Withdraw(Move move)
         {
-            grid[move.row, move.col] = null;
+            moves[move.locX, move.locY] = null;
             Render();
         }
-
-        public void Render()
-        {
-            const int moduleWidth = 6; //QQ: naming convention
-            const int moduleHeight = 3;
-
-            int maxX = row * moduleWidth - 1;
-            int maxY = column * moduleHeight - 1;
-
-            Console.WriteLine("\n");
-            for (var y=0; y <= maxY; y++)
-            {
-                for (var x=0; x <= maxX; x++)
-                {
-                    if ( (x + 1) % moduleWidth == 0 && x != maxX)
-                    {
-                        Console.Write("|");
-                    }
-                    else if ((y+1) % moduleHeight == 0 && y != maxY)
-                    {
-                        Console.Write("_");
-                    }
-                    else if ( x % moduleWidth == 2 && y % moduleHeight == 1)
-                    {
-                        int gridRow = x / moduleWidth;
-                        int gridCol = y / moduleHeight;
-                        
-                        if (grid[gridRow, gridCol] == null)
-                        {
-                            Console.Write(" ");
-                        }
-                        else
-                        {
-                            SymbolPiece piece = grid[gridRow, gridCol].piece as SymbolPiece;
-
-                            Console.Write(piece.symbol);
-                        }
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.Write("\n");
-            }
-         }
 
         public List<Move> GetStates()
         {
             List<Move> movelist = new List<Move>();
-            for (int i = 0; i < row; i++)
+            for (int x = 0; x < width; x++)
             {
-                for (int j = 0; j < column; j++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (grid[i, j] != null)
+                    if (moves[x, y] != null)
                     {
-                        Console.WriteLine($"Append to list {i} {j}");
-                        movelist.Add(grid[i, j]);
+                        Console.WriteLine($"Append to list {x} {y}");
+                        movelist.Add(moves[x, y]);
                     }
                 }
             }
             return movelist;
         }
 
-        public void LoadStates(List<Move> moves)
+        public void LoadStates(List<Move> movelist)
         {
-            foreach (Move move in moves)
+            foreach (Move move in movelist)
             {
-                grid[move.row, move.col] = move;
+                moves[move.locX, move.locY] = move;
             }
-            Console.WriteLine($"Total: {moves.Count}");
+            Console.WriteLine($"Total: {movelist.Count}");
             Render();
         }
 
@@ -114,13 +69,13 @@ namespace BoardGame
         {
             List<(int, int)> locs = new List<(int, int)>();
 
-            for (int i = 0; i < row; i++)
+            for (int x = 0; x < width; x++)
             {
-                for (int j = 0; j < column; j++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (grid[i, j] == null)
+                    if (moves[x, y] == null)
                     {
-                        locs.Add((i, j));
+                        locs.Add((x, y));
                     }
                 }
             }
@@ -129,13 +84,13 @@ namespace BoardGame
 
         public bool CheckAvailableLoc(int x, int y)
         {
-            if (x > (row - 1) || y > (column - 1))
+            if (x > (width - 1) || y > (height - 1))
             {
                 Console.WriteLine("Out of valid range.");
                 return false;
             }
 
-            if (grid[x, y] != null)
+            if (moves[x, y] != null)
             {
                 Console.WriteLine($"{x} {y} is already occupied.");
                 return false;

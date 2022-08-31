@@ -20,7 +20,7 @@ namespace BoardGame
             board = factory.CreateBoard();
             storage = factory.CreateStorage();
 
-            players = CreatePlayers(helpSystem.SelectGameMode(), factory.CreatePiece);
+            players = factory.CreatePlayers(helpSystem.SelectGameMode(), factory.CreatePiece);
             moveTracker = new MoveTracker();
         }
 
@@ -80,26 +80,6 @@ namespace BoardGame
                         break;
                 }
             }
-        }
-
-        private Player[] CreatePlayers(int mode, Func<Piece> CreatePiece)
-        {
-            Player[] players = new Player[2];
-            players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());
-            //players[1] = (mode == 1) ? new HumanPlayer(Id: 2, piece: CreatePiece()): new AIPlayer(Id: 2, piece: CreatePiece());
-
-            if (mode == 1)
-            {
-                players[1] = new HumanPlayer(Id: 2, piece: CreatePiece());
-            }
-            else
-            {
-                players[1] = new AIPlayer(Id: 2, piece: CreatePiece());
-            }
-
-            Console.Write($"\n{players[0].ToString()} got '{players[0].Piece.ToString()}'. ");
-            Console.WriteLine($"{players[1].ToString()} got '{players[1].Piece.ToString()}'.");
-            return players;
         }
 
         private Player ChangeTurns()
