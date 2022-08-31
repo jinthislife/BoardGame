@@ -10,6 +10,8 @@ namespace BoardGame
 
         protected abstract Move ParseLine(String line);
 
+        public bool ExistsPreviousState() => File.Exists(FILENAME) ? true : false;
+
         public void Save(List<Move> moves)
         {
             FileStream outFile = new FileStream(FILENAME, FileMode.Create, FileAccess.Write);

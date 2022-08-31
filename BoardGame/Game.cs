@@ -27,12 +27,12 @@ namespace BoardGame
         public void Run()
         {
             //helpSystem.displayIntro();
-            //if fileexists
-            //    ask to load?
-
-            board.Render();
+            if (storage.ExistsPreviousState() == false || LoadFromSavedState() == false)
+            {
+                board.Render();
+            }
             currentPlayer = ChangeTurns();
-
+    
             while (!gameFinished)
             {
                 string input = currentPlayer.Play(board);
@@ -58,14 +58,22 @@ namespace BoardGame
                         help.Execute();
                         break;
                     case string movestr when movestr.StartsWith("place"):
-                        Move move = MoveFrom(movestr);
-                        if (move != null)
+                        String[] cmdSlices = movestr.Split(' ');
+                        int r, c;
+                        if (cmdSlices.Length == 3 &&
+                            int.TryParse(cmdSlices[1], out r) &&
+                            int.TryParse(cmdSlices[2], out c) &&
+                            board.CheckAvailableLoc(x: r, y: c)
+                         )
                         {
+                            Move move = new Move(r, c, currentPlayer.Piece);
                             PlaceCommand place = new PlaceCommand(move, board);
                             place.Execute();
                             moveTracker.Insert(place);
                             CheckGameState(move);
+                            break;
                         }
+                        Console.WriteLine("Failed to place your move. Please try again!");
                         break;
                     default:
                         Console.WriteLine("Invalid Command");
@@ -78,6 +86,7 @@ namespace BoardGame
         {
             Player[] players = new Player[2];
             players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());
+            //players[1] = (mode == 1) ? new HumanPlayer(Id: 2, piece: CreatePiece()): new AIPlayer(Id: 2, piece: CreatePiece());
 
             if (mode == 1)
             {
@@ -101,22 +110,21 @@ namespace BoardGame
             return players[curPlayerID];
         }
 
-        private Move MoveFrom(String moveStr)
+        private bool LoadFromSavedState()
         {
-            int r, c;
-            String[] cmdSlices = moveStr.Split(' ');
-
-            if (cmdSlices.Length == 3 &&
-                int.TryParse(cmdSlices[1], out r) &&
-                int.TryParse(cmdSlices[2], out c) &&
-                board.CheckAvailableLoc(x: r, y: c)
-             )
+            Console.WriteLine("\nIf you want to start from the previously saved state, please type 'y'. If you want a fresh start , plase type any key.");
+            Console.Write(">> ");
+            ConsoleKey input = Console.ReadKey().Key;
+            if (input == ConsoleKey.Y)
             {
-                return new Move(r, c, currentPlayer.Piece);
-            }
+                LoadCommand load = new LoadCommand(storage, board);
+                load.Execute();
+                Thread.Sleep(1500);
 
-            Console.WriteLine("Failed to place your move. Please try again!");
-            return null; // QQ ok?
+                if ((board.CountOccupied % 2) == 1) currentPlayer = ChangeTurns();
+                return true;
+            }
+            return false;
         }
 
         private void CheckGameState(Move latest)

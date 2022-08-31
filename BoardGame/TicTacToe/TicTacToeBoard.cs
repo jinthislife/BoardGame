@@ -13,7 +13,7 @@ namespace BoardGame
             // check col
             for (int col = 0; col < 3; col++)
             {
-                if (grid[latest.row, col] == null || grid[latest.row, col].piece != latest.piece)
+                if (grid[latest.row, col] == null || grid[latest.row, col].piece.ToString() != latest.piece.ToString())
                 {
                     break;
                 }
@@ -26,7 +26,7 @@ namespace BoardGame
             // check row
             for (int row = 0; row < 3; row++)
             {
-                if (grid[row, latest.col] == null || grid[row, latest.col].piece != latest.piece)
+                if (grid[row, latest.col] == null || grid[row, latest.col].piece.ToString() != latest.piece.ToString())
                 {
                     break;
                 }
@@ -41,7 +41,7 @@ namespace BoardGame
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    if (grid[i, i] == null || grid[i, i].piece != latest.piece)
+                    if (grid[i, i] == null || grid[i, i].piece.ToString() != latest.piece.ToString())
                     {
                         break;
                     }
@@ -57,7 +57,7 @@ namespace BoardGame
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    if (grid[i, 2 - i] == null || grid[i, 2 - i].piece != latest.piece)
+                    if (grid[i, 2 - i] == null || grid[i, 2 - i].piece.ToString() != latest.piece.ToString())
                     {
                         break;
                     }
@@ -67,8 +67,6 @@ namespace BoardGame
                     }
                 }
             }
-
-            //check draw??
             return false;
         }
     }

@@ -8,6 +8,11 @@ namespace BoardGame
         private int row;
         private int column;
         protected Move[,] grid;
+        public int CountOccupied
+        {
+            get =>
+                ((row * column) - GetAvaliableLocs().Count);
+        }
 
         // let subclass implement checkWin
         // as each game has different rules to decide win
@@ -135,7 +140,6 @@ namespace BoardGame
                 Console.WriteLine($"{x} {y} is already occupied.");
                 return false;
             }
-
             return true;
         }
 

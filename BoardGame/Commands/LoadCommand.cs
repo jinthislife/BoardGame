@@ -15,6 +15,7 @@ namespace BoardGame
         public void Execute()
         {
             _board.LoadStates(_storage.Load());
+            Console.WriteLine("\nSuccessfully loaded saved state.\n");
         }
     }
 }
