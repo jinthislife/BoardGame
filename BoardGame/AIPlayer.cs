@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace BoardGame
 {
@@ -13,9 +15,22 @@ namespace BoardGame
         {
             Console.WriteLine($"\nIt's AI Player's turn now!");
             Thread.Sleep(3000);
-            int[] loc = board.GetEmptyLoc();
-            Console.Write($"AI placed {loc[0]} {loc[1]}");
-            return loc == null ? "" : $"place {loc[0]} {loc[1]}";
+            
+            string cliInput = "";
+            List<(int, int)> locs = board.GetAvaliableLocs();
+
+            if (locs.Count > 0)
+            {
+                var random = new Random();
+                int index = random.Next(locs.Count);
+
+                (int, int) loc = locs[index];
+
+                Console.Write($"AI placed {loc.Item1} {loc.Item2}");
+                cliInput = $"place {loc.Item1} {loc.Item2}";
+            }
+
+            return cliInput;
         }
 
         public override string ToString()

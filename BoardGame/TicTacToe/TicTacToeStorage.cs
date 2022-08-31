@@ -17,11 +17,11 @@ namespace BoardGame
 
             if (slices.Length == 3 && int.TryParse(slices[0], out row) && int.TryParse(slices[1], out col))
             {
-                Piece piece;
+                Piece piece = new SymbolPiece(symbol: slices[2].ToCharArray()[0]);
 
                 //if (slices[4] == "BoardGame.SymbolPiece")
                 //{
-                    piece = new SymbolPiece(symbol: slices[2].ToCharArray()[0]);
+                //piece = new SymbolPiece(symbol: slices[2].ToCharArray()[0]);
                 //}
                 //else
                 //{
@@ -30,10 +30,8 @@ namespace BoardGame
  
                 return new Move(row, col, piece);
             }
-            else
-            {
-                throw new InvalidDataException();
-            }
+
+            throw new InvalidDataException();    
         }
     }
 }

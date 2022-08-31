@@ -64,15 +64,7 @@ namespace BoardGame
                             PlaceCommand place = new PlaceCommand(move, board);
                             place.Execute();
                             moveTracker.Insert(place);
-
-                            if (board.CheckWin(move))
-                            {
-                                gameFinished = true;
-                            }
-                            else
-                            {
-                                currentPlayer = ChangeTurns();
-                            }
+                            CheckGameState(move);
                         }
                         break;
                     default:
@@ -80,10 +72,7 @@ namespace BoardGame
                         break;
                 }
             }
-
-            Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
         }
-
 
         private Player[] CreatePlayers(int mode, Func<Piece> CreatePiece)
         {
@@ -120,7 +109,7 @@ namespace BoardGame
             if (cmdSlices.Length == 3 &&
                 int.TryParse(cmdSlices[1], out r) &&
                 int.TryParse(cmdSlices[2], out c) &&
-                board.CheckValidMove(x: r, y: c)
+                board.CheckAvailableLoc(x: r, y: c)
              )
             {
                 return new Move(r, c, currentPlayer.Piece);
@@ -128,6 +117,24 @@ namespace BoardGame
 
             Console.WriteLine("Failed to place your move. Please try again!");
             return null; // QQ ok?
+        }
+
+        private void CheckGameState(Move latest)
+        {
+            switch (board.CheckState(latest))
+            {
+                case BoardGameState.Playing:
+                    currentPlayer = ChangeTurns();
+                    break;
+                case BoardGameState.Won:
+                    gameFinished = true;
+                    Console.WriteLine($"\n{currentPlayer.ToString()} won the game!");
+                    break;
+                case BoardGameState.Draw:
+                    gameFinished = true;
+                    Console.WriteLine($"\nDraw, There is no winner!");
+                    break;
+            }
         }
     }
 }

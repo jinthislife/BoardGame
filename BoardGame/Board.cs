@@ -105,22 +105,24 @@ namespace BoardGame
             Render();
         }
 
-        public int[] GetEmptyLoc()
+        public List<(int, int)> GetAvaliableLocs()
         {
+            List<(int, int)> locs = new List<(int, int)>();
+
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < column; j++)
                 {
                     if (grid[i, j] == null)
                     {
-                        return new int[] { i, j };
+                        locs.Add((i, j));
                     }
                 }
             }
-            return null;
+            return locs;
         }
 
-        public bool CheckValidMove(int x, int y)
+        public bool CheckAvailableLoc(int x, int y)
         {
             if (x > (row - 1) || y > (column - 1))
             {
@@ -135,6 +137,20 @@ namespace BoardGame
             }
 
             return true;
+        }
+
+        public BoardGameState CheckState(Move latest)
+        {
+            BoardGameState state = BoardGameState.Playing;
+            if (CheckWin(latest))
+            {
+                state = BoardGameState.Won;
+            }
+            else if (GetAvaliableLocs().Count == 0)
+            {
+                state = BoardGameState.Draw;
+            }
+            return state;
         }
     }
 }
