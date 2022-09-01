@@ -18,7 +18,7 @@ namespace BoardGame
             string modeStr;
             do
             {
-                Console.WriteLine("Please select game mode");
+                Console.WriteLine("Please select a game mode");
                 Console.WriteLine("1. Human vs Human");
                 Console.WriteLine("2. Human vs AI - Easy");
                 Console.WriteLine("3. Human vs AI - Normal");

@@ -7,8 +7,11 @@ namespace BoardGame
 {
     public class AIPlayer : Player
     {
-        public AIPlayer(int Id, Piece piece) : base(Id, piece)
+        private AIMoveStrategy strategy;
+
+        public AIPlayer(int Id, Piece piece, AIMoveStrategy strategy) : base(Id, piece)
         {
+            this.strategy = strategy;
         }
 
         public override string Play(Board board)
@@ -16,21 +19,21 @@ namespace BoardGame
             Console.WriteLine($"\nIt's AI Player's turn now!");
             Thread.Sleep(1000);
             
-            string cliInput = "";
-            List<(int, int)> locs = board.GetAvaliableLocs();
+            string cmdstr = "";
 
-            if (locs.Count > 0)
+            try
             {
-                var random = new Random();
-                int index = random.Next(locs.Count);
-
-                (int, int) loc = locs[index];
+                (int, int) loc = strategy.AIMove();
 
                 Console.Write($"AI placed {loc.Item1} {loc.Item2}");
-                cliInput = $"place {loc.Item1} {loc.Item2}";
+                cmdstr = $"place {loc.Item1} {loc.Item2}";
+            }
+            catch
+            {
+                Console.WriteLine("AI failed to move");
             }
 
-            return cliInput;
+            return cmdstr;
         }
 
         public override string ToString()

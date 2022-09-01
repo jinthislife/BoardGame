@@ -31,7 +31,17 @@ namespace BoardGame
             return new SymbolPiece(symbol: availableSymbols[0]);
         }
 
-        public override Player[] CreatePlayers(int mode, Func<Piece> CreatePiece)
+        public override EasyMoveStrategy CreateEasyMoveStrategy(Board board)
+        {
+            return new TicTacToeEasyMoveStrategy(board);
+        }
+
+        public override NormalMoveStrategy CreateNormalMoveStrategy(Board board)
+        {
+            return new TicTacToeNormalMoveStrategy(board);
+        }
+
+        public override Player[] CreatePlayers(int mode, AIMoveStrategy strategy)
         {
             Player[] players = new Player[2];
             players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());
@@ -42,7 +52,7 @@ namespace BoardGame
             }
             else
             {
-                players[1] = new AIPlayer(Id: 2, piece: CreatePiece());
+                players[1] = new AIPlayer(Id: 2, piece: CreatePiece(), strategy: strategy);
             }
 
             Console.Write($"\n{players[0].ToString()} got '{players[0].Piece.ToString()}'. ");

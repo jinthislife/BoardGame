@@ -4,7 +4,6 @@ namespace BoardGame
 {
     public class HumanPlayer : Player
     {
-        // name taking process, save and restore add complexity, cannot be restored in the middle of the game
         public HumanPlayer(int Id, Piece piece) : base(Id, piece)
         {
         }

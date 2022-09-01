@@ -9,6 +9,7 @@ namespace BoardGame
         private Storage storage;
         private MoveTracker moveTracker;
         private HelpSystem helpSystem;
+        private AIMoveStrategy strategy;
         private Player[] players;
         private Player currentPlayer;
         private int curPlayerID = 1;
@@ -16,10 +17,20 @@ namespace BoardGame
 
         public Game(GameFactory factory)
         {
-            helpSystem = factory.CreateHelpSystem();
             board = factory.CreateBoard();
+            helpSystem = factory.CreateHelpSystem();
+            int gameMode = helpSystem.SelectGameMode();
+            if (gameMode == 2)
+            {
+                strategy = factory.CreateEasyMoveStrategy(board);
+            }
+            else
+            {
+                strategy = factory.CreateNormalMoveStrategy(board);
+            }
             storage = factory.CreateStorage();
-            players = factory.CreatePlayers(helpSystem.SelectGameMode(), factory.CreatePiece);
+            players = factory.CreatePlayers(gameMode, strategy);
+
             moveTracker = new MoveTracker();
         }
 
@@ -92,7 +103,7 @@ namespace BoardGame
 
         private bool LoadFromSavedState()
         {
-            Console.WriteLine("\nIf you want to start from the previously saved state, please type 'y'. If you want a fresh start, plase type any key.");
+            Console.WriteLine("\nPreviously saved state found. If you want to start from there, please type 'y'. If you want a fresh start, plase type any key.");
             Console.Write(">> ");
             ConsoleKey input = Console.ReadKey().Key;
             if (input == ConsoleKey.Y)

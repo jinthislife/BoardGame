@@ -26,7 +26,6 @@ namespace BoardGame
             this.height = height;
         }
 
-        // Template methods
         public void Place(Move move)
         {
             moves[move.locX, move.locY] = move;
