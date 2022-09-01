@@ -48,7 +48,13 @@ namespace BoardGame
                         storage.Save(board.GetStates());
                         break;
                     case "load":
-                        board.LoadStates(storage.Load());
+                        if (storage.ExistsPreviousState())
+                        {
+                            board.LoadStates(storage.Load());
+                            moveTracker.Clear();
+                            break;
+                        }
+                        Console.WriteLine("No saved state.");
                         break;
                     case "help":
                         helpSystem.DisplayManual();
@@ -91,9 +97,7 @@ namespace BoardGame
             ConsoleKey input = Console.ReadKey().Key;
             if (input == ConsoleKey.Y)
             {
-                //Thread.Sleep(200);
-                LoadCommand load = new LoadCommand(storage, board);
-                load.Execute();
+                board.LoadStates(storage.Load());
 
                 if ((board.getOccupiedCount() % 2) == 1) currentPlayer = ChangeTurns();
                 return true;

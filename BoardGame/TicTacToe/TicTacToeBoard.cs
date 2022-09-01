@@ -57,7 +57,6 @@ namespace BoardGame
             }
         }
 
-        // TODO: wincheck except diag/antidiagonal
         public override bool CheckWin(Move latest)
         {
             // check col

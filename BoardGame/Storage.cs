@@ -34,9 +34,9 @@ namespace BoardGame
             outFile.Close();
         }
 
-        // Template Method 
         public List<Move> Load()
         {
+            
             FileStream inFile = new FileStream(FILENAME, FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(inFile);
             string recordIn = reader.ReadLine();

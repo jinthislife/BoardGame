@@ -39,20 +39,18 @@ namespace BoardGame
             Render();
         }
 
-        public List<Move> GetStates()
+        public BoardGameState CheckState(Move latest)
         {
-            List<Move> movelist = new List<Move>();
-            for (int x = 0; x < width; x++)
+            BoardGameState state = BoardGameState.Playing;
+            if (CheckWin(latest))
             {
-                for (int y = 0; y < height; y++)
-                {
-                    if (moves[x, y] != null)
-                    {
-                        movelist.Add(moves[x, y]);
-                    }
-                }
+                state = BoardGameState.Won;
             }
-            return movelist;
+            else if (GetAvaliableLocs().Count == 0)
+            {
+                state = BoardGameState.Draw;
+            }
+            return state;
         }
 
         public void LoadStates(List<Move> movelist)
@@ -72,18 +70,20 @@ namespace BoardGame
             Render();
         }
 
-        public BoardGameState CheckState(Move latest)
+        public List<Move> GetStates()
         {
-            BoardGameState state = BoardGameState.Playing;
-            if (CheckWin(latest))
+            List<Move> movelist = new List<Move>();
+            for (int x = 0; x < width; x++)
             {
-                state = BoardGameState.Won;
+                for (int y = 0; y < height; y++)
+                {
+                    if (moves[x, y] != null)
+                    {
+                        movelist.Add(moves[x, y]);
+                    }
+                }
             }
-            else if (GetAvaliableLocs().Count == 0)
-            {
-                state = BoardGameState.Draw;
-            }
-            return state;
+            return movelist;
         }
     }
 }

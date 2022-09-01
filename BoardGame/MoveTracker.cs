@@ -37,5 +37,12 @@ namespace BoardGame
             _Undoables.Push(place);
             _Redoables.Clear();
         }
+
+
+        public void Clear()
+        {
+            _Undoables.Clear();
+            _Redoables.Clear();
+        }
     }
 }
