@@ -31,12 +31,12 @@ namespace BoardGame
             return new SymbolPiece(symbol: availableSymbols[0]);
         }
 
-        public override EasyMoveStrategy CreateEasyMoveStrategy(Board board)
+        public override AIMoveStrategy CreateEasyMoveStrategy(Board board)
         {
             return new TicTacToeEasyMoveStrategy(board);
         }
 
-        public override NormalMoveStrategy CreateNormalMoveStrategy(Board board)
+        public override AIMoveStrategy CreateNormalMoveStrategy(Board board)
         {
             return new TicTacToeNormalMoveStrategy(board);
         }
