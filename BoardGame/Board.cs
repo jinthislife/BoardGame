@@ -42,13 +42,10 @@ namespace BoardGame
         {
             BoardGameState state = BoardGameState.Playing;
             if (CheckWin(latest))
-            {
                 state = BoardGameState.Won;
-            }
             else if (GetAvaliableLocs().Count == 0)
-            {
                 state = BoardGameState.Draw;
-            }
+
             return state;
         }
 
@@ -76,10 +73,7 @@ namespace BoardGame
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (moves[x, y] != null)
-                    {
-                        movelist.Add(moves[x, y]);
-                    }
+                    if (moves[x, y] != null) movelist.Add(moves[x, y]);
                 }
             }
             return movelist;

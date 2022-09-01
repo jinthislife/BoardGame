@@ -19,15 +19,12 @@ namespace BoardGame
         {
             board = factory.CreateBoard();
             helpSystem = factory.CreateHelpSystem();
+
             int gameMode = helpSystem.SelectGameMode();
             if (gameMode == 2)
-            {
                 strategy = factory.CreateEasyMoveStrategy(board);
-            }
             else
-            {
                 strategy = factory.CreateNormalMoveStrategy(board);
-            }
             storage = factory.CreateStorage();
             players = factory.CreatePlayers(gameMode, strategy);
 

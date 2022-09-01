@@ -143,10 +143,7 @@ namespace BoardGame
             {
                 for (int y = 0; y < height; y++)
                 {
-                    if (moves[x, y] == null)
-                    {
-                        locs.Add((x, y));
-                    }
+                    if (moves[x, y] == null) locs.Add((x, y));
                 }
             }
             return locs;
