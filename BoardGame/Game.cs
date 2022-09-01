@@ -45,16 +45,13 @@ namespace BoardGame
                         moveTracker.Redo();
                         break;
                     case "save":
-                        SaveCommand save = new SaveCommand(storage, board);
-                        save.Execute();
+                        storage.Save(board.GetStates());
                         break;
                     case "load":
-                        LoadCommand load = new LoadCommand(storage, board);
-                        load.Execute();
+                        board.LoadStates(storage.Load());
                         break;
                     case "help":
-                        HelpCommand help = new HelpCommand(helpSystem);
-                        help.Execute();
+                        helpSystem.DisplayManual();
                         break;
                     case string movestr when movestr.StartsWith("place"):
                         String[] cmdSlices = movestr.Split(' ');
@@ -66,9 +63,9 @@ namespace BoardGame
                          )
                         {
                             Move move = new Move(r, c, currentPlayer.Piece);
-                            PlaceCommand place = new PlaceCommand(move, board);
-                            place.Execute();
-                            moveTracker.Insert(place);
+                            PlaceCommand placeCmd = new PlaceCommand(move, board);
+                            placeCmd.Execute();
+                            moveTracker.Insert(placeCmd);
                             CheckGameState(move);
                             break;
                         }
@@ -83,8 +80,6 @@ namespace BoardGame
 
         private Player ChangeTurns()
         {
-            Thread.Sleep(1000);
-
             curPlayerID = (curPlayerID + 1) % 2;
             return players[curPlayerID];
         }
@@ -96,7 +91,7 @@ namespace BoardGame
             ConsoleKey input = Console.ReadKey().Key;
             if (input == ConsoleKey.Y)
             {
-                Thread.Sleep(200);
+                //Thread.Sleep(200);
                 LoadCommand load = new LoadCommand(storage, board);
                 load.Execute();
 

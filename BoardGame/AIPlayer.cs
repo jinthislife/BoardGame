@@ -14,7 +14,7 @@ namespace BoardGame
         public override string Play(Board board)
         {
             Console.WriteLine($"\nIt's AI Player's turn now!");
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             
             string cliInput = "";
             List<(int, int)> locs = board.GetAvaliableLocs();

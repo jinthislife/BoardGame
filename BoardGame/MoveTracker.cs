@@ -15,7 +15,9 @@ namespace BoardGame
                 PlaceCommand place = _Undoables.Pop();
                 place.UnExecute();
                 _Redoables.Push(place);
+                return;
             }
+            Console.WriteLine("No more undoable commands");
         }
 
         public void Redo()
@@ -25,7 +27,9 @@ namespace BoardGame
                 PlaceCommand place = _Redoables.Pop();
                 place.Execute();
                 _Undoables.Push(place);
+                return;
             }
+            Console.WriteLine("No more redoable commands");
         }
 
         public void Insert(PlaceCommand place)
