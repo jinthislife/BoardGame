@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Security.Cryptography;
 
 namespace BoardGame
 {
-    public abstract class HelpSystem
+    public class HelpSystem
     {
-        //abstract public void displayIntro();
-
         public void DisplayManual()
         {
             Console.WriteLine("General commands manual");
