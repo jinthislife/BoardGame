@@ -7,9 +7,9 @@ namespace BoardGame
 {
     public class AIPlayer : Player
     {
-        private AIMoveStrategy strategy;
+        private MoveStrategy strategy;
 
-        public AIPlayer(int Id, Piece piece, AIMoveStrategy strategy) : base(Id, piece)
+        public AIPlayer(int Id, Piece piece, MoveStrategy strategy) : base(Id, piece)
         {
             this.strategy = strategy;
         }
@@ -23,7 +23,7 @@ namespace BoardGame
 
             try
             {
-                (int, int) loc = strategy.AIMove();
+                (int, int) loc = strategy.SelectPosition();
 
                 Console.Write($"AI placed {loc.Item1} {loc.Item2}");
                 cmdstr = $"place {loc.Item1} {loc.Item2}";

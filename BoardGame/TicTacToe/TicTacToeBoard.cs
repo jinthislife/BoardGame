@@ -119,7 +119,7 @@ namespace BoardGame
             return false;
         }
 
-        public override bool CheckAvailableLoc(int x, int y)
+        public override bool CheckIfEmpty(int x, int y)
         {
             if (x > (width - 1) || y > (height - 1))
             {
@@ -135,7 +135,7 @@ namespace BoardGame
             return true;
         }
 
-        public override List<(int, int)> GetAvaliableLocs()
+        public override List<(int, int)> GetEmptyPositions()
         {
             List<(int, int)> locs = new List<(int, int)>();
 
@@ -151,7 +151,7 @@ namespace BoardGame
 
         public override int getOccupiedCount()
         {
-            return ((width * height) - GetAvaliableLocs().Count);
+            return ((width * height) - GetEmptyPositions().Count);
         }
     }
 }

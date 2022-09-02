@@ -31,17 +31,17 @@ namespace BoardGame
             return new SymbolPiece(symbol: availableSymbols[0]);
         }
 
-        public override AIMoveStrategy CreateEasyMoveStrategy(Board board)
+        public override MoveStrategy CreateEasyMoveStrategy(Board board)
         {
             return new TicTacToeEasyMoveStrategy(board);
         }
 
-        public override AIMoveStrategy CreateNormalMoveStrategy(Board board)
+        public override MoveStrategy CreateNormalMoveStrategy(Board board)
         {
             return new TicTacToeNormalMoveStrategy(board);
         }
 
-        public override Player[] CreatePlayers(int mode, AIMoveStrategy strategy)
+        public override Player[] CreatePlayers(int mode, MoveStrategy strategy)
         {
             Player[] players = new Player[2];
             players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());

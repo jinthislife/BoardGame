@@ -16,8 +16,8 @@ namespace BoardGame
         // Therefore abstract methods below need to be implemented by derived classes.
         public abstract void Render();
         public abstract bool CheckWin(Move latest);
-        public abstract bool CheckAvailableLoc(int x, int y);
-        public abstract List<(int, int)> GetAvaliableLocs();
+        public abstract bool CheckIfEmpty(int x, int y);
+        public abstract List<(int, int)> GetEmptyPositions();
         public abstract int getOccupiedCount();
 
         protected Board(int width, int height)
@@ -43,7 +43,7 @@ namespace BoardGame
             BoardGameState state = BoardGameState.Playing;
             if (CheckWin(latest))
                 state = BoardGameState.Won;
-            else if (GetAvaliableLocs().Count == 0)
+            else if (GetEmptyPositions().Count == 0)
                 state = BoardGameState.Draw;
 
             return state;

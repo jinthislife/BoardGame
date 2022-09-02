@@ -9,7 +9,7 @@ namespace BoardGame
         private Storage storage;
         private MoveTracker moveTracker;
         private HelpSystem helpSystem;
-        private AIMoveStrategy strategy;
+        private MoveStrategy strategy;
         private Player[] players;
         private Player currentPlayer;
         private int curPlayerID = 1;
@@ -21,11 +21,13 @@ namespace BoardGame
             helpSystem = factory.CreateHelpSystem();
 
             int gameMode = helpSystem.SelectGameMode();
+            storage = factory.CreateStorage();
+
             if (gameMode == 2)
                 strategy = factory.CreateEasyMoveStrategy(board);
             else
                 strategy = factory.CreateNormalMoveStrategy(board);
-            storage = factory.CreateStorage();
+
             players = factory.CreatePlayers(gameMode, strategy);
 
             moveTracker = new MoveTracker();
@@ -73,7 +75,7 @@ namespace BoardGame
                         if (cmdSlices.Length == 3 &&
                             int.TryParse(cmdSlices[1], out r) &&
                             int.TryParse(cmdSlices[2], out c) &&
-                            board.CheckAvailableLoc(x: r, y: c)
+                            board.CheckIfEmpty(x: r, y: c)
                          )
                         {
                             Move move = new Move(r, c, currentPlayer.Piece);
