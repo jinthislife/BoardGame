@@ -6,11 +6,4 @@ namespace BoardGame
         TicTacToe = 1,
         Othello
     }
-
-    public enum BoardGameState
-    {
-        Playing,
-        Won,
-        Draw,
-    }
 }

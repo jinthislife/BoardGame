@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace BoardGame
 {
+    public enum BoardGameState
+    {
+        Playing,
+        Won,
+        Draw,
+    }
+
     public abstract class Board
     {
         protected int width;
