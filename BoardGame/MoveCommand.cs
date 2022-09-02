@@ -1,12 +1,12 @@
 ﻿using System;
 namespace BoardGame
 {
-    public class PlaceCommand : ICommand
+    public class MoveCommand : ICommand
     {
         private Board board;
         private Move move;
 
-        public PlaceCommand(Move move, Board board)
+        public MoveCommand(Move move, Board board)
         {
             this.move = move;
             this.board = board;

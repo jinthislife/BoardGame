@@ -3,18 +3,18 @@ using System;
 
 namespace BoardGame
 {
-    public class MoveTracker
+    public class CommandTracker
     {
-        private Stack<PlaceCommand> _Undoables = new Stack<PlaceCommand>();
-        private Stack<PlaceCommand> _Redoables = new Stack<PlaceCommand>();
+        private Stack<ICommand> _Undoables = new Stack<ICommand>();
+        private Stack<ICommand> _Redoables = new Stack<ICommand>();
 
         public void Undo()
         {
             if (_Undoables.Count > 0)
             {
-                PlaceCommand place = _Undoables.Pop();
-                place.UnExecute();
-                _Redoables.Push(place);
+                ICommand cmd = _Undoables.Pop();
+                cmd.UnExecute();
+                _Redoables.Push(cmd);
                 return;
             }
             Console.WriteLine("No more undoable commands");
@@ -24,17 +24,17 @@ namespace BoardGame
         {
             if (_Redoables.Count > 0)
             {
-                PlaceCommand place = _Redoables.Pop();
-                place.Execute();
-                _Undoables.Push(place);
+                ICommand cmd = _Redoables.Pop();
+                cmd.Execute();
+                _Undoables.Push(cmd);
                 return;
             }
             Console.WriteLine("No more redoable commands");
         }
 
-        public void Insert(PlaceCommand place)
+        public void Insert(ICommand cmd)
         {
-            _Undoables.Push(place);
+            _Undoables.Push(cmd);
             _Redoables.Clear();
         }
 

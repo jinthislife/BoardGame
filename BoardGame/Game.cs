@@ -7,7 +7,7 @@ namespace BoardGame
     {
         private Board board;
         private Storage storage;
-        private MoveTracker moveTracker;
+        private CommandTracker commandTracker;
         private HelpSystem helpSystem;
         private MoveStrategy strategy;
         private Player[] players;
@@ -30,7 +30,7 @@ namespace BoardGame
 
             players = factory.CreatePlayers(gameMode, strategy);
 
-            moveTracker = new MoveTracker();
+            commandTracker = new CommandTracker();
         }
 
         public void Run()
@@ -49,10 +49,10 @@ namespace BoardGame
                 switch (input)
                 {
                     case "undo":
-                        moveTracker.Undo();
+                        commandTracker.Undo();
                         break;
                     case "redo":
-                        moveTracker.Redo();
+                        commandTracker.Redo();
                         break;
                     case "save":
                         storage.Save(board.GetStates());
@@ -61,7 +61,7 @@ namespace BoardGame
                         if (storage.ExistsPreviousState())
                         {
                             board.LoadStates(storage.Load());
-                            moveTracker.Clear();
+                            commandTracker.Clear();
                             break;
                         }
                         Console.WriteLine("No saved state.");
@@ -69,7 +69,7 @@ namespace BoardGame
                     case "help":
                         helpSystem.DisplayManual();
                         break;
-                    case string movestr when movestr.StartsWith("place"):
+                    case string movestr when movestr.StartsWith("move"):
                         String[] cmdSlices = movestr.Split(' ');
                         int r, c;
                         if (cmdSlices.Length == 3 &&
@@ -79,9 +79,9 @@ namespace BoardGame
                          )
                         {
                             Move move = new Move(r, c, currentPlayer.Piece);
-                            PlaceCommand placeCmd = new PlaceCommand(move, board);
-                            placeCmd.Execute();
-                            moveTracker.Insert(placeCmd);
+                            MoveCommand cmd = new MoveCommand(move, board);
+                            cmd.Execute();
+                            commandTracker.Insert(cmd);
                             CheckGameState(move);
                             break;
                         }

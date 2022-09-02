@@ -26,7 +26,7 @@ namespace BoardGame
                 (int, int) loc = strategy.SelectPosition();
 
                 Console.Write($"AI placed {loc.Item1} {loc.Item2}");
-                cmdstr = $"place {loc.Item1} {loc.Item2}";
+                cmdstr = $"move {loc.Item1} {loc.Item2}";
             }
             catch
             {

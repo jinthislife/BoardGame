@@ -53,6 +53,7 @@ namespace BoardGame
         {
             try
             {
+                moves = new Move[width, height];
                 foreach (Move move in movelist)
                 {
                     moves[move.locX, move.locY] = move;
