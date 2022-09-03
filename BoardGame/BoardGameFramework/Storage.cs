@@ -7,7 +7,6 @@ namespace BoardGame
     public abstract class Storage
     {
         protected abstract string FILENAME { get; }
-
         protected abstract Move ParseLine(String line);
 
         public bool ExistsPreviousState() => File.Exists(FILENAME) ? true : false;

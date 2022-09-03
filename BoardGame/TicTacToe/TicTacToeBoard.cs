@@ -43,8 +43,7 @@ namespace BoardGame
                         }
                         else
                         {
-                            SymbolPiece piece = moves[gridRow, gridCol].piece as SymbolPiece;
-
+                            TicTacToePiece piece = moves[gridRow, gridCol].piece as TicTacToePiece;
                             Console.Write(piece.symbol);
                         }
                     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BoardGame
 {
-    public class SymbolPiece : Piece
+    public class TicTacToePiece : Piece
     {
         static protected Dictionary<Char, bool> symbols = new Dictionary<Char, bool> { ['O'] = false, ['X'] = false };
 
@@ -15,7 +15,7 @@ namespace BoardGame
             return symbols.Where(s => s.Value == false).ToDictionary(s => s.Key, s => s.Value).Keys.ToArray();
         }
 
-        public SymbolPiece(Char symbol)
+        public TicTacToePiece(Char symbol)
         {
             this.symbol = symbol;
             symbols[symbol] = true;

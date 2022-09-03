@@ -17,13 +17,13 @@ namespace BoardGame
 
         public override Piece CreatePiece()
         {
-            Char[] availableSymbols = SymbolPiece.GetAvailable();
+            Char[] availableSymbols = TicTacToePiece.GetAvailable();
 
             if (availableSymbols.Length == 0) {
                 throw new ArgumentOutOfRangeException();
             }
 
-            return new SymbolPiece(symbol: availableSymbols[0]);
+            return new TicTacToePiece(symbol: availableSymbols[0]);
         }
 
         public override MoveStrategy CreateEasyMoveStrategy(Board board)
