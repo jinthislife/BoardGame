@@ -33,7 +33,6 @@ namespace BoardGame
                 switch ((BoardGames)selectedGame)
                 {
                     case BoardGames.TicTacToe:
-                        //Console.WriteLine($"\nLet's play {Enum.GetName(typeof(BoardGames), (BoardGames)selectedGame)}!\n");
                         Console.WriteLine("\nLet's paly TicTacToe!\n");
                         return new TicTacToeFactory();
                     case BoardGames.Othello:

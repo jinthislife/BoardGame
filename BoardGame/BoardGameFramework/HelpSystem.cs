@@ -6,7 +6,20 @@ namespace BoardGame
     {
         public void DisplayManual()
         {
-            Console.WriteLine("General commands manual");
+            Console.WriteLine("\n                 General Commands Manual\n");
+            Console.WriteLine("\nThe following commands are available:\n");
+            Console.WriteLine("move: used to place a move specifying row and column number");
+            Console.WriteLine("      For example, to place a piece on the top left corner is.");
+            Console.WriteLine("      >> move 0 0 \n");
+            Console.WriteLine("save: used to save game state to file system\n");
+            Console.WriteLine("load: used to restore previously saved state to play from the restore state\n");
+            Console.WriteLine("undo: used to go to the previous state\n");
+            Console.WriteLine("redo: used to go to the next state from present state\n");
+
+            
+
+            Console.WriteLine("help: used for open General Commands Manual\n");
+
         }
 
         public int SelectGameMode()
