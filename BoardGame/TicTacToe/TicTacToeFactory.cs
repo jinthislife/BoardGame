@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace BoardGame
 {
@@ -35,24 +34,5 @@ namespace BoardGame
         {
             return new TicTacToeNormalMoveStrategy(board);
         }
-
-        //public override Player[] CreatePlayers(int mode, MoveStrategy strategy)
-        //{
-        //    Player[] players = new Player[2];
-        //    players[0] = new HumanPlayer(Id: 1, piece: CreatePiece());
-
-        //    if (mode == 1)
-        //    {
-        //        players[1] = new HumanPlayer(Id: 2, piece: CreatePiece());
-        //    }
-        //    else
-        //    {
-        //        players[1] = new AIPlayer(Id: 2, piece: CreatePiece(), strategy: strategy);
-        //    }
-
-        //    Console.Write($"\n{players[0].ToString()} got '{players[0].Piece.ToString()}'. ");
-        //    Console.WriteLine($"{players[1].ToString()} got '{players[1].Piece.ToString()}'.");
-        //    return players;
-        //}
     }
 }

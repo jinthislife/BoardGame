@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace BoardGame
 {
@@ -29,7 +28,6 @@ namespace BoardGame
             else
                 strategy = factory.CreateNormalMoveStrategy(board);
 
-            //players = factory.CreatePlayers(gameMode, strategy);
             players = CreatePlayers(gameMode, strategy, factory.CreatePiece);
         }
 
