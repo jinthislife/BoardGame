@@ -5,7 +5,7 @@ namespace BoardGame
 {
     public class AIPlayer : Player
     {
-        private MoveStrategy strategy;
+        private readonly MoveStrategy strategy;
 
         public AIPlayer(int Id, Piece piece, MoveStrategy strategy) : base(Id, piece)
         {
@@ -20,7 +20,7 @@ namespace BoardGame
             string cmdstr = "";
 
             try
-            {
+            {   // using interface to MoveStrategy, AIPlayer can access to a concrete implementation
                 (int, int) loc = strategy.SelectPosition();
 
                 Console.Write($"AI placed {loc.Item1} {loc.Item2}");

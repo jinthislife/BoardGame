@@ -4,21 +4,21 @@ namespace BoardGame
 {
     class Game
     {
-        private Board board;
-        private Storage storage;
-        private CommandTracker commandTracker;
-        private HelpSystem helpSystem;
-        private MoveStrategy strategy;
-        private Player[] players;
+        private readonly Board board;
+        private readonly Storage storage;
+        private readonly CommandTracker commandTracker;
+        private readonly HelpSystem helpSystem;
+        private readonly MoveStrategy strategy;
+        private readonly Player[] players;
         private Player currentPlayer;
         private int curPlayerID = 1;
         private bool gameFinished = false;
 
         public Game(GameFactory factory)
-        {
+        {   // during construction factory will create storage, board, strategy, and piece for 
             commandTracker = new CommandTracker();
             helpSystem = new HelpSystem();
-
+            
             int gameMode = helpSystem.SelectGameMode();
             storage = factory.CreateStorage();
             board = factory.CreateBoard();
@@ -32,7 +32,7 @@ namespace BoardGame
         }
 
         public void Run()
-        {
+        {   // In case of detecting previous state, a user will be asked if they want to load it
             if (storage.ExistsPreviousState() == false || LoadFromSavedState() == false)
             {
                 board.Render();

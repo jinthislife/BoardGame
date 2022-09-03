@@ -15,6 +15,8 @@ namespace BoardGame
             game.Run();
         }
 
+        // Returns a concrete factory of game a user selected
+        // Currently, only TicTacToe is available
         static GameFactory GetUserSelection()
         {
             do

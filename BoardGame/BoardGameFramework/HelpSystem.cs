@@ -15,11 +15,7 @@ namespace BoardGame
             Console.WriteLine("load: used to restore previously saved state to play from the restore state\n");
             Console.WriteLine("undo: used to go to the previous state\n");
             Console.WriteLine("redo: used to go to the next state from present state\n");
-
-            
-
             Console.WriteLine("help: used for open General Commands Manual\n");
-
         }
 
         public int SelectGameMode()
